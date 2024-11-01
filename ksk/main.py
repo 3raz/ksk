@@ -1,40 +1,16 @@
-import pygame
-
-from pygame_gui import UIManager, UI_BUTTON_PRESSED
-from pygame_gui.elements import UIButton, UI2DSlider, UIForm
+import pygame, sys
+from objektid.šabloonid.objekt import Objekt
 
 
 pygame.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.set_caption("Hello World")
 
+o = Objekt(10,45,screen,2)
 
-pygame.display.set_caption('Kinemaatikute Simulaator')
-window_surface = pygame.display.set_mode((800, 600))
-manager = UIManager((800, 600), 'data/themes/quick_theme.json')
-
-background = pygame.Surface((800, 600))
-background.fill(manager.ui_theme.get_colour('dark_bg'))
-
-hello_button = UIButton((350, 280), 'Hello')
-theta_slider = UI2DSlider(((100, 100), (300, 25)), 1,[1,5],1,[1,5])
-velocity_form = UIForm(((200, 200), (300, 70)))
-
-clock = pygame.time.Clock()
-is_running = True
-
-while is_running:
-    time_delta = clock.tick(60)/1000.0
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            is_running = False
-        if event.type == UI_BUTTON_PRESSED:
-            if event.ui_element == hello_button:
-                print('Hello World!')
-        manager.process_events(event)
-
-
-    manager.update(time_delta)
-
-    window_surface.blit(background, (0, 0))
-    manager.draw_ui(window_surface)
-
-    pygame.display.update()
+            pygame.quit()
+            sys.exit()
+    o.protsess()
