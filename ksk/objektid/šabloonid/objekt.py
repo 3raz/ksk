@@ -14,7 +14,7 @@ class Objekt(KinemaatikaMudel):
         """
         Joonistab objekti ekraanile.
         """
-        pygame.draw.circle(self.screen, self.color, (self.positsioon_x, self.positsioon_y), self.suurus)
+        pygame.draw.circle(self.screen, self.color, (self.positsioon_x, -self.positsioon_y), self.suurus)
     
     def __uuenda__(self):
         super().uuenda()
