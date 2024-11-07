@@ -1,32 +1,32 @@
 import math
 
 class KinemaatikaMudel:
-    def __init__(self, esialgne_kiirus, nurk, gravitatsioon=9.8, dt=0.1):
+    def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float = 9.8, dt: float = 0.1) -> None:
         self.esialgne_kiirus = esialgne_kiirus
         self.nurk = math.radians(nurk)
         self.gravitatsioon = gravitatsioon
         self.dt = dt
 
-        self.aeg = 0
-        self.positsioon_x = 0
-        self.positsioon_y = 0
-        self.kiirus_x = self.esialgne_kiirus * math.cos(self.nurk)
-        self.kiirus_y = self.esialgne_kiirus * math.sin(self.nurk)
+        self.aeg: float = 0
+        self.positsioon_x: float = 0
+        self.positsioon_y: float = 0
+        self.kiirus_x: float = self.esialgne_kiirus * math.cos(self.nurk)
+        self.kiirus_y: float = self.esialgne_kiirus * math.sin(self.nurk)
 
-    def __arvuta_positsiooni__(self):
+    def __arvuta_positsiooni__(self) -> None:
         """
         Uuenda objekti asukohta kiiruse ja aja järgi
         """
         self.positsioon_x = self.kiirus_x * self.aeg
         self.positsioon_y = (self.kiirus_y * self.aeg) - (0.5 * self.gravitatsioon * self.aeg ** 2)
 
-    def __arvuta_kiiruse__(self):
+    def __arvuta_kiiruse__(self) -> None:
         """
         Uuenda objekti y-kiirust gravitatsiooni alusel
         """
         self.kiirus_y -= self.gravitatsioon * self.dt
 
-    def uuenda(self):
+    def uuenda(self) -> None:
         """
         Uuenda objekti kõiki aspekte
         """
@@ -35,7 +35,7 @@ class KinemaatikaMudel:
         self.aeg += self.dt
 
     
-    def lähtesta_seadja(self, esialgne_kiirus, nurk):
+    def lähtesta_seadja(self, esialgne_kiirus: float, nurk: float) -> None:
         """
         Lähtesta
         """
@@ -48,7 +48,7 @@ class KinemaatikaMudel:
         self.kiirus_y = self.esialgne_kiirus * math.sin(self.nurk)
 
     @property
-    def objekti_andmed_võtja(self):
+    def objekti_andmed_võtja(self) -> dict:
         """
         Tagastab objekti andmed. Seda kutsutakse simulatsiooni 
         lõpus, et näidata kasutajale kulunud aega ja läbitud vahemaad.
