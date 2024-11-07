@@ -35,7 +35,7 @@ class KinemaatikaMudel:
         self.aeg += self.dt
 
     
-    def seadja_lähtesta(self, esialgne_kiirus, nurk):
+    def lähtesta_seadja(self, esialgne_kiirus, nurk):
         """
         Lähtesta
         """

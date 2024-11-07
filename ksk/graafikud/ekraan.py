@@ -1,42 +1,41 @@
-import pygame, sys
-from objektid.šabloonid.objekt import Objekt
-from utils.kaunistused import Singleton
-import time
+import pygame
 
-@Singleton.singleton
-class Ekraan(object):
+class EkraanMeta(type):
+    _eksemplarid = {}
 
-    def __init__(self, suurus_x, suurus_y):
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._eksemplarid:
+            cls._eksemplarid[cls] = super(EkraanMeta, cls).__call__(*args, **kwargs)
+        return cls._eksemplarid[cls]
+
+class Ekraan(metaclass=EkraanMeta):
+    def __init__(self, suurus_x, suurus_y, kaptsioon="Ekraan", tapeedi_värv=(0,0,0)):
+        pygame.init()
         self.suurus_x = suurus_x
         self.suurus_y = suurus_y
         self.ekraan = pygame.display.set_mode((self.suurus_x, self.suurus_y))
+        pygame.display.set_caption(kaptsioon)
+        self.tapeedi_värv = tapeedi_värv
+        self.objektid = []
+    
+    def joonista_objekte(self):
+        for o in self.objektid:
+            o.protsess()
+        pygame.display.flip()
+    
+    def puhasta(self):
+        self.ekraan.fill(self.tapeedi_värv)
+    
+    def värvi_seadja(self, värv):
+        self.tapeedi_värv = värv
+        
+    def lisa_objekti(self, objekt):
+        self.objektid.append(objekt)
     
     @property
     def ekraani_võtja(self):
         return self.ekraan
-
-
-
-
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("Hello World")
-
-o = Objekt(100,45,screen,50)
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
     
-    screen.fill((255, 255, 255))
-    
-    o.protsess()
-    print(o.objekti_andmed_võtja)
-    time.sleep(0.1)
-
-    # Flip the display
-    pygame.display.flip()
-
+    def __del__(self):
+        pygame.quit()
     
