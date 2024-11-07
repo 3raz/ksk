@@ -7,4 +7,6 @@ digraph "Inheritance Flowchart" {
 	objekt
 	main -> objekt
 	main -> ekraan
+	objekt -> KinemaatikaMudel
+	ekraan -> gui
 }

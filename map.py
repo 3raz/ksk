@@ -16,15 +16,26 @@ for subdir, dirs, files in os.walk(rootdir):
             flowchart.node(file[:-3])
             search.append(file[:-3])
 
-with open(os.path.join(rootdir,"main.py"), 'r', encoding="UTF-8") as f:
-    for line in f:
-        line = line.lower()
-        if "import" in line:
-            print(line)
-            for key in search:
-                if key in line:
-                    print("main", key)
-                    flowchart.edge("main", key)
+print(search)
+
+def create_chart(start):
+    next_search = []
+    with open(start, 'r', encoding="UTF-8") as f:
+        cur = start.split("\\")[-1][:-3]
+        for line in f:
+            if "import" in line:
+                for key in search:
+                    if key in line:
+                        flowchart.edge(cur, key)
+                        next_search.append(key)
+    if next_search == []:
+        return
+    for x in next_search:
+        print(x, 1234567890)
+        create_chart(classes[x+".py"])
+    
+                        
+create_chart(classes["main.py"])
 
 
 flowchart.render()
