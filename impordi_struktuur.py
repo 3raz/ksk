@@ -3,7 +3,7 @@
 import os
 from graphviz import Digraph
 
-flowchart = Digraph("Inheritance Flowchart", filename="inheritance_flowchart", format="png")
+flowchart = Digraph("Import flowchart", filename="import_flowchart", format="png")
 
 rootdir = os.getcwd()+"\\ksk"
 
@@ -26,6 +26,8 @@ def create_chart(start):
             if "import" in line:
                 for key in search:
                     if key in line:
+                        if cur == key:
+                            break
                         flowchart.edge(cur, key)
                         next_search.append(key)
     if next_search == []:

@@ -1,12 +1,12 @@
-digraph "Inheritance Flowchart" {
+digraph "Inheritance flowchart" {
 	main
-	ekraan
-	gui
+	Ekraan
+	Gui
 	KinemaatikaMudel
-	"sfäär"
-	objekt
-	main -> objekt
-	main -> ekraan
-	objekt -> KinemaatikaMudel
-	ekraan -> gui
+	Ruut
+	"Sfäär"
+	Objekt
+	Objekt -> KinemaatikaMudel
+	Ruut -> Objekt
+	"Sfäär" -> Objekt
 }
