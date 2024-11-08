@@ -1,5 +1,5 @@
 import pygame, sys
-from objektid.šabloonid.objekt import Objekt
+from objektid.šabloonid.Objekt import Objekt
 from graafikud.ekraan import Ekraan
 
 

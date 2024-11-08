@@ -1,5 +1,5 @@
 import pygame
-from gui.gui import GUI
+from graafikud.gui.gui import GUI
 
 class EkraanMeta(type):
     _eksemplarid = {}
