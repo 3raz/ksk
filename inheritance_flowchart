@@ -1,0 +1,12 @@
+digraph "Inheritance Flowchart" {
+	main
+	ekraan
+	gui
+	KinemaatikaMudel
+	"sfäär"
+	objekt
+	main -> objekt
+	main -> ekraan
+	objekt -> KinemaatikaMudel
+	ekraan -> gui
+}

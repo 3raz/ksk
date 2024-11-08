@@ -31,7 +31,6 @@ def create_chart(start):
     if next_search == []:
         return
     for x in next_search:
-        print(x, 1234567890)
         create_chart(classes[x+".py"])
     
                         
