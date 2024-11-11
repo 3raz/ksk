@@ -1,4 +1,4 @@
-from objektid.šabloonid.Objekt import Objekt
+from mudlid.Objekt import Objekt
 import pygame
 
 class Sfäär(Objekt):
