@@ -35,4 +35,4 @@ Kinemaatika Simulatsioon ja Kalkulaator
     ```python3 main.py```
 
 
-NB! Et genereerida pilt selle koodibaasi impordi struktuurist, palun lae alla [Graphviz'i](https://graphviz.org/download/) uusim versioon nende ametlikult allalaadimislehelt!
+NB! Et genereerida pilt selle koodibaasi impordi struktuurist, palun laadige alla [Graphviz'i](https://graphviz.org/download/) uusim versioon nende ametlikult allalaadimislehelt!
