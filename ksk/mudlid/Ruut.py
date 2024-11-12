@@ -6,4 +6,7 @@ class Ruut(Objekt):
         super().__init__(ekraan, esialgne_kiirus, nurk, gravitatsioon=gravitatsioon, dt=dt, suurus=suurus, värv=värv)
 
     def _joonista_(self):
+        """
+        Joonistab ruuti andtud andmetega.
+        """
         pygame.draw.rect(self.ekraan, self.värv, pygame.Rect(self.positsioon_x, self.algus_y-self.positsioon_y, self.suurus, self.suurus))

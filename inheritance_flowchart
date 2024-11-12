@@ -1,12 +1,15 @@
 digraph "Inheritance flowchart" {
 	main
 	Ekraan
-	Gui
+	GUI
+	Juhataja
 	KinemaatikaMudel
+	Objekt
 	Ruut
 	"Sfäär"
-	Objekt
+	"SündmuseJuhataja"
 	Objekt -> KinemaatikaMudel
 	Ruut -> Objekt
 	"Sfäär" -> Objekt
+	"SündmuseJuhataja" -> Juhataja
 }

@@ -6,4 +6,7 @@ class Sfäär(Objekt):
         super().__init__(ekraan, esialgne_kiirus, nurk, gravitatsioon=gravitatsioon, dt=dt, suurus=suurus, värv=värv)
 
     def _joonista_(self):
+        """
+        Joonistab sfääri andtud andmetega.
+        """
         pygame.draw.circle(self.ekraan, self.värv, (self.positsioon_x, self.algus_y-self.positsioon_y), self.suurus)

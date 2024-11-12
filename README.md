@@ -1,6 +1,12 @@
 # ksk
 Kinemaatika Simulatsioon ja Kalkulaator
 
+## Impordi struktuur
+<img alt="pilt" src="import_flowchart.png">
+
+## Päriluse struktuur
+<img alt="pilt" src="inheritance_flowchart.png">
+
 ## Arenduskeskkonna Seadistamine
 
 1. **Veenduge, et Python on Paigaldatud**  

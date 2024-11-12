@@ -1,17 +1,17 @@
 digraph "Import flowchart" {
 	main
 	Ekraan
-	Gui
+	GUI
+	Juhataja
 	KinemaatikaMudel
+	Objekt
 	Ruut
 	"Sfäär"
-	Objekt
+	"SündmuseJuhataja"
+	main -> Juhataja
 	main -> "Sfäär"
-	main -> Ruut
-	main -> Ekraan
+	Juhataja -> Ekraan
+	Juhataja -> GUI
 	"Sfäär" -> Objekt
 	Objekt -> KinemaatikaMudel
-	Ruut -> Objekt
-	Objekt -> KinemaatikaMudel
-	Ekraan -> Gui
 }
