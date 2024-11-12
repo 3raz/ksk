@@ -2,10 +2,10 @@
 Kinemaatika Simulatsioon ja Kalkulaator
 
 ## Impordi struktuur
-<img alt="pilt" src="import_flowchart.png">
+<img alt="pilt" src="muu_asju/import_flowchart.png">
 
 ## Päriluse struktuur
-<img alt="pilt" src="inheritance_flowchart.png">
+<img alt="pilt" src="muu_asju/inheritance_flowchart.png">
 
 ## Arenduskeskkonna Seadistamine
 

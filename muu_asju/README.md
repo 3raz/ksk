@@ -1,0 +1,1 @@
+# NB! Kõik asjad siin ei ole hinamise jaoks ja on tagavara! Põhiprogramm asub kaustas /ksk

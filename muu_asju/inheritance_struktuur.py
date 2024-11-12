@@ -3,10 +3,6 @@
 import os
 from graphviz import Digraph
 
-
-
-
-
 def rotate_list(lst, n):
     for i in range(n):
         lst.insert(0, lst.pop())
