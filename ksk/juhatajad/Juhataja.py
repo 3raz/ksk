@@ -1,7 +1,7 @@
 import pygame
 from sündmused.SündmuseJuhataja import SündmuseJuhataja
 from ekraan.Ekraan import Ekraan
-from gui.GUI import GUI
+from gui.Gui import GUI
 
 class Juhataja:
     def __init__(self):
