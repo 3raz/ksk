@@ -1,5 +1,4 @@
 import pygame
-from ekraan.Ekraan import Ekraan
 import sys
 
 class SündmuseJuhataja:
@@ -18,3 +17,6 @@ class SündmuseJuhataja:
                 self.ekraan.ekraan = pygame.display.set_mode((sündmus.w, sündmus.h), pygame.RESIZABLE)
                 self.ekraan.ekraan.blit(vana_ekraan, (0,0))
                 del vana_ekraan
+                
+                for objekt in self.ekraan.objektid:
+                    objekt.alguspunkti_seadja((sündmus.w, sündmus.h))
