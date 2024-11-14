@@ -8,9 +8,7 @@ class Objekt(KinemaatikaMudel):
         self.suurus = suurus
         self.ekraan = ekraan
         self.värv = värv
-        self.algus_x = 0
-        self.algus_y = 0
-    
+        
     @abstractmethod
     def _joonista_(self) -> None:
         """
@@ -23,10 +21,6 @@ class Objekt(KinemaatikaMudel):
         Privaatfunktsioon uuenda objektiandmeid lapsevanema klassi kaudu.
         """
         super().uuenda()
-    
-    def alguspunkti_seadja(self, punkt: tuple) -> None:
-        self.algus_x = punkt[0]
-        self.algus_y = punkt[1]
     
     def protsess(self) -> None:
         self._joonista_()

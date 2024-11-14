@@ -28,7 +28,8 @@ class Ekraan(metaclass=EkraanMeta):
         """
         for o in self.objektid:
             o.protsess()
-        pygame.display.flip()
+            
+        pygame.display.update()
     
     def puhasta(self):
         """

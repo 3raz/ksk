@@ -12,11 +12,17 @@ class KinemaatikaMudel:
         self.positsioon_y: float = 0
         self.kiirus_x: float = self.esialgne_kiirus * math.cos(self.nurk)
         self.kiirus_y: float = self.esialgne_kiirus * math.sin(self.nurk)
+        
+        self.algus_x = 0
+        self.algus_y = 0
 
     def __arvuta_positsiooni__(self) -> None:
         """
         Uuenda objekti asukohta kiiruse ja aja järgi
         """
+        if self.algus_y - self.positsioon_y > self.algus_y:
+            del self
+            return
         self.positsioon_x = self.kiirus_x * self.aeg
         self.positsioon_y = (self.kiirus_y * self.aeg) - (0.5 * self.gravitatsioon * self.aeg ** 2)
 
@@ -46,6 +52,10 @@ class KinemaatikaMudel:
         self.positsioon_y = 0
         self.kiirus_x = self.esialgne_kiirus * math.cos(self.nurk)
         self.kiirus_y = self.esialgne_kiirus * math.sin(self.nurk)
+
+    def alguspunkti_seadja(self, punkt: tuple) -> None:
+        self.algus_x = punkt[0]
+        self.algus_y = punkt[1]
 
     @property
     def objekti_andmed_võtja(self) -> dict:
