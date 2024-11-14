@@ -1,0 +1,23 @@
+digraph "Import flowchart" {
+	main
+	__init__
+	__init__
+	__init__
+	__init__
+	__init__
+	Ekraan
+	GUI
+	Juhataja
+	KinemaatikaMudel
+	Objekt
+	Ruut
+	"Sfäär"
+	"SündmuseJuhataja"
+	main -> Juhataja
+	main -> "Sfäär"
+	Juhataja -> Ekraan
+	Juhataja -> GUI
+	Ekraan -> GUI
+	"Sfäär" -> Objekt
+	Objekt -> KinemaatikaMudel
+}

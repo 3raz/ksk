@@ -1,4 +1,5 @@
 import pygame
+from gui.GUI import GUI
 
 class EkraanMeta(type):
     """
@@ -16,10 +17,11 @@ class Ekraan(metaclass=EkraanMeta):
         pygame.init()
         self.suurus_x = suurus_x
         self.suurus_y = suurus_y
+        self.tapeedi_värv = tapeedi_värv
         self.ekraan = pygame.display.set_mode((self.suurus_x, self.suurus_y), pygame.RESIZABLE)
         
         pygame.display.set_caption(kaptsioon)
-        self.tapeedi_värv = tapeedi_värv
+
         self.objektid = []
 
     def joonista_objekte(self):
