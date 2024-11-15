@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import sys
-from gui.GUI import GUIWindow
+from gui.GUI import GUIEkraan
 
 class SündmuseJuhataja:
     def __init__(self, ekraan, gui):
@@ -22,7 +22,7 @@ class SündmuseJuhataja:
                 vana_gui = self.gui.manager
                 self.ekraan.ekraan = pygame.display.set_mode((sündmus.w, sündmus.h), pygame.RESIZABLE)
                 self.gui.manager = pygame_gui.UIManager((sündmus.w, sündmus.h))
-                self.gui.guiopedia_window = GUIWindow(manager=self.gui.manager)
+                self.gui.kinematics_window = GUIEkraan(self.gui.manager)
                 self.ekraan.ekraan.blit(vana_ekraan, (0,0))
                 print(vana_ekraan)
                 print(vana_gui)

@@ -1,70 +1,111 @@
-import re
-from collections import OrderedDict
-from os import listdir, linesep
-from os.path import isfile, join, basename, splitext
+import random
+import pygame_gui
+from collections import deque
+from typing import Optional
+
+from pygame_gui import UIManager, PackageResource
+
+from pygame_gui.elements import UIWindow
+from pygame_gui.elements import UIButton
+from pygame_gui.elements import UIHorizontalSlider
+from pygame_gui.elements import UITextEntryLine
+from pygame_gui.elements import UIDropDownMenu
+from pygame_gui.elements import UIScreenSpaceHealthBar
+from pygame_gui.elements import UILabel
+from pygame_gui.elements import UIImage
+from pygame_gui.elements import UIPanel
+from pygame_gui.elements import UISelectionList
+
+from pygame_gui.windows import UIMessageWindow
+from pygame_gui.core import ObjectID
+
 
 import pygame
-import pygame_gui
 
-from pygame_gui.elements import UITextBox
 
-class GUIWindow(pygame_gui.elements.UIWindow):
-    def __init__(self, manager):
-        super().__init__(pygame.Rect((200, 50), (420, 520)),
-                         manager,
-                         window_display_title='Kinemaatikud',
-                         object_id="#kinematics_window")
+class GUIEkraan(UIWindow):
+    def __init__(self, ui_manager, dimensions=(512,512)):
+        super().__init__(pygame.Rect((50, 50), dimensions), ui_manager,
+                         window_display_title='GUI',
+                         object_id='#gui_window',
+                         resizable=True)
 
-        input_bar_top_margin = 2
-        input_bar_bottom_margin = 2
-        self.input_box = pygame_gui.elements.UITextEntryLine(pygame.Rect((150, input_bar_top_margin), (230, 30)), manager=manager, container=self, parent_element=self)
+        self.margin_vertical = self.rect.height/100
+        self.margin_horizontal = self.rect.width/100
 
-        self.input_label = pygame_gui.elements.UILabel(pygame.Rect((90, input_bar_top_margin), (56, self.input_box.rect.height)), "Input:", manager=manager, container=self, parent_element=self)
+        self.test_slider = UIHorizontalSlider(pygame.Rect((int(self.margin_horizontal),
+                                                           self.margin_vertical),
+                                                          (240, 25)),
+                                              50.0,
+                                              (0.0, 100.0),
+                                              self.ui_manager,
+                                              container=self,
+                                              click_increment=5)
 
-        self.home_button = pygame_gui.elements.UIButton(pygame.Rect((20, input_bar_top_margin), (29, 29)), '', manager=manager, container=self, parent_element=self, object_id='#home_button')
+        self.slider_label = UILabel(pygame.Rect((int(self.rect.width / 2) + 250,
+                                                 int(self.rect.height * 0.70)),
+                                                (28, 25)),
+                                    str(int(self.test_slider.get_current_value())),
+                                    self.ui_manager,
+                                    container=self)
 
-        self.remaining_window_size = (self.get_container().get_size()[0], (self.get_container().get_size()[1] - (self.input_box.rect.height + input_bar_top_margin + input_bar_bottom_margin)))
+        self.test_text_entry = UITextEntryLine(pygame.Rect((int(self.rect.width / 2),
+                                                            int(self.rect.height * 0.50)),
+                                                           (200, -1)),
+                                               self.ui_manager,
+                                               container=self)
+        self.test_text_entry.set_forbidden_characters('numbers')
 
-        self.pages = {}
-        page_path = 'ksk/data/kinematics/'
-        file_paths = [join(page_path, f) for f in listdir(page_path) if isfile(join(page_path, f))]
-        for file_path in file_paths:
-            with open(file_path, 'r') as page_file:
-                file_id = splitext(basename(file_path))[0]
-                file_data = ""
-                for line in page_file:
-                    line = line.rstrip(linesep).lstrip()
-                    if len(line) > 0:
-                        if line[-1] != '>':
-                            line += ' '
-                        file_data += line
-                self.pages[file_id] = file_data
+        current_resolution_string = 'Item 1'
+        self.test_drop_down_menu = UIDropDownMenu(['Item 1',
+                                                   'Item 2',
+                                                   'Item 3',
+                                                   'Item 4',
+                                                   'Item 5',
+                                                   'Item 6',
+                                                   'Item 7',
+                                                   'Item 8',
+                                                   'Item 9',
+                                                   'Item 10',
+                                                   'Item 11',
+                                                   'Item 12',
+                                                   'Item 13',
+                                                   'Item 14',
+                                                   'Item 15',
+                                                   'Item 16',
+                                                   'Item 17',
+                                                   'Item 18',
+                                                   'Item 19',
+                                                   'Item 20',
+                                                   'Item 21',
+                                                   'Item 22',
+                                                   'Item 23',
+                                                   'Item 24',
+                                                   'Item 25',
+                                                   'Item 26',
+                                                   'Item 27',
+                                                   'Item 28',
+                                                   'Item 29',
+                                                   'Item 30'
+                                                   ],
+                                                  current_resolution_string,
+                                                  pygame.Rect((int(self.rect.width / 2),
+                                                               int(self.rect.height * 0.3)),
+                                                              (200, 25)),
+                                                  self.ui_manager,
+                                                  container=self)
 
-        index_page = self.pages['index']
-        self.page_y_start_pos = (self.input_box.rect.height + input_bar_top_margin + input_bar_bottom_margin)
-        self.page_display = UITextBox(index_page, pygame.Rect((0, self.page_y_start_pos), self.remaining_window_size), manager=manager, container=self, parent_element=self)
+        self.health_bar = UIScreenSpaceHealthBar(pygame.Rect((int(self.rect.width / 9),
+                                                              int(self.rect.height * 0.7)),
+                                                             (200, 30)),
+                                                 self.ui_manager,
+                                                 container=self)
 
-    def process_event(self, event):
+    def update(self, time_delta):
+        super().update(time_delta)
 
-        if event.type == pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
-            self.ava_uus_leht(event.link_target)
-
-        if (event.type == pygame_gui.UI_TEXT_ENTRY_FINISHED and
-                event.ui_element == self.input_box):
-            print(event.text)
-
-        if (event.type == pygame_gui.UI_BUTTON_PRESSED and
-                event.ui_object_id == '#kinematics_window.#home_button'):
-            self.ava_uus_leht('index')
-
-    def ava_uus_leht(self, page_link: str):
-        self.page_display.kill()
-        self.page_display = None
-        if page_link in self.pages:
-            text = self.pages[page_link]
-
-            self.page_display = UITextBox(text, pygame.Rect((0, self.page_y_start_pos), self.remaining_window_size), manager=self.ui_manager, container=self, parent_element=self)
-
+        if self.alive() and self.test_slider.has_moved_recently:
+            print(self.test_slider.get_current_value())
 
 class GUI:
     def __init__(self, suurus_x, suurus_y):
@@ -73,7 +114,7 @@ class GUI:
 
         self.manager = pygame_gui.UIManager((suurus_x, suurus_y), "data/themes/kinematics_theme.json")
 
-        self.kinematics_window = GUIWindow(manager=self.manager)
+        self.kinematics_window = GUIEkraan(self.manager)
 
     @property
     def gui_võtja(self):

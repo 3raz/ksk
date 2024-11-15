@@ -11,7 +11,7 @@ class Juhataja:
 
         self.clock = pygame.time.Clock()
         self.dt = self.clock.tick(60)
-        self.dt_kiirus = 250
+        self.dt_kiirus = 100000
         
         self.jooksmas = True
         
