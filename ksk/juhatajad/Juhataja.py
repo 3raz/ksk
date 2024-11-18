@@ -1,22 +1,29 @@
 import pygame
 from sündmused.SündmuseJuhataja import SündmuseJuhataja
 from ekraan.Ekraan import Ekraan
-from gui.GUI import GUI
+from gui.Gui import GUI
 
 class Juhataja:
-    def __init__(self): 
-        self.ekraan = Ekraan(640, 480)
-        self.gui = GUI(640, 480)
+    def __init__(self):
+        """
+        See initsialiseerib kõik olulised mudlid
+        """
+        self.ekraan = Ekraan(640*2, 480*2)
+        self.gui = GUI(640, 480, self.ekraan)
         self.sündmuseJuhataja = SündmuseJuhataja(self.ekraan, self.gui)
 
+        # Käivitamise kiirus, et objektid joonistatakse õigel ajal 
         self.clock = pygame.time.Clock()
         self.dt = self.clock.tick(60)
-        self.dt_kiirus = 100000
+        self.dt_kiirus = 1000
         
         self.jooksmas = True
         
 
     def programm(self):
+        """
+        Põhiprogramm tsükel
+        """
         while self.jooksmas:
             self.sündmuseJuhataja.töötle_sündmustega()
             

@@ -26,16 +26,14 @@ class Main:
 
 if __name__ == "__main__":
     """
-    PÕHIPROGRAMM KUS OBJEKTID JA VÄRKI SAAKS LISADA
+    Põhiprogramm
     """
     main = Main()
 
-    # Loob palju objekte ja käskib neid läbi õhu lendama
     for x in range(5):
         for j in range(100, 500, 10):
             for i in range(0,124, 5):
                 o = Sfäär(main.juhataja.ekraan.ekraani_võtja,j,i, suurus=5, värv=(0,255-2*i,2*i))
-                o.alguspunkti_seadja((0, 480))
                 main.juhataja.ekraan.lisa_objekti(o)
 
     main.jookse()

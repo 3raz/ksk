@@ -1,28 +1,25 @@
 import pygame
-from gui.GUI import GUI
+from gui.Gui import GUI
 
-class EkraanMeta(type):
-    """
-    Üheainsa eksemplari muster ekraani jaoks.
-    """
-    _eksemplarid = {}
+class Ekraan:
+    _eksemplar = None
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._eksemplarid:
-            cls._eksemplarid[cls] = super(EkraanMeta, cls).__call__(*args, **kwargs)
-        return cls._eksemplarid[cls]
+    def __new__(cls, *args, **kwargs):
+        if cls._eksemplar is None:
+            cls._eksemplar = super(Ekraan, cls).__new__(cls)
+            cls._eksemplar._initialized = False
+        return cls._eksemplar
 
-class Ekraan(metaclass=EkraanMeta):
-    def __init__(self, suurus_x, suurus_y, kaptsioon="Ekraan", tapeedi_värv=(0,0,0)):
-        pygame.init()
-        self.suurus_x = suurus_x
-        self.suurus_y = suurus_y
-        self.tapeedi_värv = tapeedi_värv
-        self.ekraan = pygame.display.set_mode((self.suurus_x, self.suurus_y), pygame.RESIZABLE)
-        
-        pygame.display.set_caption(kaptsioon)
-
-        self.objektid = []
+    def __init__(self, suurus_x, suurus_y, kaptsioon="Ekraan", tapeedi_värv=(0, 0, 0)):
+        if not self._initialized:
+            pygame.init()
+            self.suurus_x = suurus_x
+            self.suurus_y = suurus_y
+            self.tapeedi_värv = tapeedi_värv
+            self.ekraan = pygame.display.set_mode((self.suurus_x, self.suurus_y), pygame.RESIZABLE)
+            pygame.display.set_caption(kaptsioon)
+            self.objektid = []
+            self._initialized = True
 
     def joonista_objekte(self):
         """
@@ -30,7 +27,6 @@ class Ekraan(metaclass=EkraanMeta):
         """
         for o in self.objektid:
             o.protsess()
-            
         pygame.display.update()
     
     def puhasta(self):
@@ -46,6 +42,7 @@ class Ekraan(metaclass=EkraanMeta):
         """
         Lisa objekti järjendisse. Funktsioon joonista_objekte selles klassis siis joonistab kõike, mis on järjendis.
         """
+        objekt.alguspunkti_seadja((self.suurus_x, self.suurus_y))
         self.objektid.append(objekt)
     
     @property
@@ -57,4 +54,3 @@ class Ekraan(metaclass=EkraanMeta):
         Lõpeta käivitamist korralikult.
         """
         pygame.quit()
-    

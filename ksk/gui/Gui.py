@@ -12,23 +12,17 @@ from pygame_gui.elements import UITextEntryLine
 from pygame_gui.elements import UIDropDownMenu
 from pygame_gui.elements import UIScreenSpaceHealthBar
 from pygame_gui.elements import UILabel
-from pygame_gui.elements import UIImage
-from pygame_gui.elements import UIPanel
-from pygame_gui.elements import UISelectionList
-
-from pygame_gui.windows import UIMessageWindow
-from pygame_gui.core import ObjectID
-
 
 import pygame
 
 
 class GUIEkraan(UIWindow):
-    def __init__(self, ui_manager, dimensions=(512,512)):
-        super().__init__(pygame.Rect((50, 50), dimensions), ui_manager,
+    def __init__(self, ui_manager, ekraan):
+        dimensions = (ekraan.suurus_x, ekraan.suurus_y/8)
+        super().__init__(pygame.Rect((0, ekraan.suurus_y-ekraan.suurus_y/8), dimensions), ui_manager,
                          window_display_title='GUI',
                          object_id='#gui_window',
-                         resizable=True)
+                         resizable=False)
 
         self.margin_vertical = self.rect.height/100
         self.margin_horizontal = self.rect.width/100
@@ -108,13 +102,13 @@ class GUIEkraan(UIWindow):
             print(self.test_slider.get_current_value())
 
 class GUI:
-    def __init__(self, suurus_x, suurus_y):
+    def __init__(self, suurus_x, suurus_y, ekraan):
         self.background = pygame.Surface((suurus_x, suurus_y))
         self.background.fill(pygame.Color('#707070'))
 
         self.manager = pygame_gui.UIManager((suurus_x, suurus_y), "data/themes/kinematics_theme.json")
 
-        self.kinematics_window = GUIEkraan(self.manager)
+        self.kinematics_window = GUIEkraan(self.manager, ekraan)
 
     @property
     def gui_võtja(self):
