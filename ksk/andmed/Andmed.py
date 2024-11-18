@@ -4,9 +4,12 @@ import time
 
 
 class Andmed:
+    """
+    See klass rakendab ainus eksemplari disainimustrit, et jagada andmeid mitme objekti vahel.
+    """
     _eksemplar = None
 
-    def __new__(cls, fn="Andmed.json"):
+    def __new__(cls, fn="ksk\\andmed\\Andmed.json"):
         if cls._eksemplar is None:
             cls._eksemplar = super(Andmed, cls).__new__(cls)
             cls._eksemplar.andmed = {}

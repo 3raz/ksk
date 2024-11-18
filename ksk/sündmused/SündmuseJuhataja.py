@@ -2,6 +2,9 @@ import pygame
 import pygame_gui
 import sys
 from gui.Gui import GUIEkraan
+from andmed.Andmed import Andmed
+
+andmed = Andmed().andmed
 
 class SündmuseJuhataja:
     def __init__(self, ekraan, gui):
@@ -19,12 +22,13 @@ class SündmuseJuhataja:
 
             # Kustutab vana GUI ja ekraani ära ja initsialiseerib uued korraliku suurustega
             if sündmus.type == pygame.VIDEORESIZE:
+                andmed["resolution"] = [sündmus.w, sündmus.h]
                 vana_ekraan = self.ekraan.ekraan
                 vana_gui = self.gui.manager
                 self.ekraan.ekraan = pygame.display.set_mode((sündmus.w, sündmus.h), pygame.RESIZABLE)
 
                 self.gui.manager = pygame_gui.UIManager((sündmus.w, sündmus.h))
-                self.gui.kinematics_window = GUIEkraan(self.gui.manager, self.ekraan)
+                self.gui.kinematics_window = GUIEkraan(self.gui.manager)
                 self.ekraan.ekraan.blit(vana_ekraan, (0,0))
 
                 del vana_ekraan

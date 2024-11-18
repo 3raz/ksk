@@ -8,8 +8,8 @@ class Juhataja:
         """
         See initsialiseerib kõik olulised mudlid
         """
-        self.ekraan = Ekraan(640*2, 480*2)
-        self.gui = GUI(640, 480, self.ekraan)
+        self.ekraan = Ekraan()
+        self.gui = GUI()
         self.sündmuseJuhataja = SündmuseJuhataja(self.ekraan, self.gui)
 
         # Käivitamise kiirus, et objektid joonistatakse õigel ajal 

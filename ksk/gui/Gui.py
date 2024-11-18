@@ -1,9 +1,7 @@
-import random
-import pygame_gui
-from collections import deque
-from typing import Optional
+from andmed.Andmed import Andmed
 
-from pygame_gui import UIManager, PackageResource
+
+import pygame_gui
 
 from pygame_gui.elements import UIWindow
 from pygame_gui.elements import UIButton
@@ -15,14 +13,13 @@ from pygame_gui.elements import UILabel
 
 import pygame
 
+andmed = Andmed().andmed
 
 class GUIEkraan(UIWindow):
-    def __init__(self, ui_manager, ekraan):
-        dimensions = (ekraan.suurus_x, ekraan.suurus_y/8)
-        super().__init__(pygame.Rect((0, ekraan.suurus_y-ekraan.suurus_y/8), dimensions), ui_manager,
-                         window_display_title='GUI',
-                         object_id='#gui_window',
-                         resizable=False)
+    def __init__(self, ui_manager):
+        ekraani_suurus_x, ekraani_suurus_y  = andmed["resolution"]
+        self.pikkus = andmed["gui_pikkus"]
+        super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, window_display_title='GUI', object_id='#gui_window', resizable=False)
 
         self.margin_vertical = self.rect.height/100
         self.margin_horizontal = self.rect.width/100
@@ -102,13 +99,14 @@ class GUIEkraan(UIWindow):
             print(self.test_slider.get_current_value())
 
 class GUI:
-    def __init__(self, suurus_x, suurus_y, ekraan):
-        self.background = pygame.Surface((suurus_x, suurus_y))
+    def __init__(self):
+        self.suurus_x, self.suurus_y = andmed["resolution"]
+        self.background = pygame.Surface((self.suurus_x, self.suurus_y))
         self.background.fill(pygame.Color('#707070'))
 
-        self.manager = pygame_gui.UIManager((suurus_x, suurus_y), "data/themes/kinematics_theme.json")
+        self.manager = pygame_gui.UIManager((self.suurus_x, self.suurus_y))
 
-        self.kinematics_window = GUIEkraan(self.manager, ekraan)
+        self.kinematics_window = GUIEkraan(self.manager)
 
     @property
     def gui_võtja(self):

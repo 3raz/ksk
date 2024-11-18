@@ -1,5 +1,8 @@
 import pygame
 from gui.Gui import GUI
+from andmed.Andmed import Andmed
+
+andmed = Andmed().andmed
 
 class Ekraan:
     _eksemplar = None
@@ -10,11 +13,10 @@ class Ekraan:
             cls._eksemplar._initialized = False
         return cls._eksemplar
 
-    def __init__(self, suurus_x, suurus_y, kaptsioon="Ekraan", tapeedi_värv=(0, 0, 0)):
+    def __init__(self, kaptsioon="Ekraan", tapeedi_värv=(0, 0, 0)):
         if not self._initialized:
             pygame.init()
-            self.suurus_x = suurus_x
-            self.suurus_y = suurus_y
+            self.suurus_x, self.suurus_y = andmed["resolution"]
             self.tapeedi_värv = tapeedi_värv
             self.ekraan = pygame.display.set_mode((self.suurus_x, self.suurus_y), pygame.RESIZABLE)
             pygame.display.set_caption(kaptsioon)
@@ -42,7 +44,7 @@ class Ekraan:
         """
         Lisa objekti järjendisse. Funktsioon joonista_objekte selles klassis siis joonistab kõike, mis on järjendis.
         """
-        objekt.alguspunkti_seadja((self.suurus_x, self.suurus_y))
+        objekt.alguspunkti_seadja((self.suurus_x, self.suurus_y-self.suurus_y/andmed["gui_pikkus"]))
         self.objektid.append(objekt)
     
     @property

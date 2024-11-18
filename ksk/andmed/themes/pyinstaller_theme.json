@@ -8,14 +8,14 @@
             "border_width": "1",
             "shadow_width": "2"
         },
-        "images":
+        "pildid":
         {
             "normal_image": {
-                "path": "data/images/splat.png",
+                "path": "andmed/pildid/splat.png",
                 "sub_surface_rect": "0,0,32,32"
             },
             "hovered_image": {
-                "path": "data/images/splat.png",
+                "path": "andmed/pildid/splat.png",
                 "sub_surface_rect": "32,0,32,32"
             }
         },
@@ -25,10 +25,10 @@
             "size": "12",
             "bold": "1",
             "italic": "0",
-            "regular_path": "data/fonts/Montserrat-Regular.ttf",
-            "bold_path": "data/fonts/Montserrat-Bold.ttf",
-            "italic_path": "data/fonts/Montserrat-Italic.ttf",
-            "bold_italic_path": "data/fonts/Montserrat-BoldItalic.ttf"
+            "regular_path": "andmed/fonts/Montserrat-Regular.ttf",
+            "bold_path": "andmed/fonts/Montserrat-Bold.ttf",
+            "italic_path": "andmed/fonts/Montserrat-Italic.ttf",
+            "bold_italic_path": "andmed/fonts/Montserrat-BoldItalic.ttf"
         }
     }
 }

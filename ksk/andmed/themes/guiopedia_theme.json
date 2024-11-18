@@ -24,10 +24,10 @@
     },
     "#guiopedia_window.#home_button":
     {
-        "images":
+        "pildid":
         {
             "normal_image": {
-                "path": "data/images/home_icon.png"
+                "path": "andmed/pildid/home_icon.png"
             }
         },
         "misc":
