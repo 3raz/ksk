@@ -5,9 +5,12 @@ from abc import abstractmethod
 class Objekt(KinemaatikaMudel):
     def __init__(self, ekraan, esialgne_kiirus, nurk, gravitatsioon=9.8, dt=0.001, suurus=10, värv=(255,0,0)) -> None:
         super().__init__(esialgne_kiirus, nurk, gravitatsioon=gravitatsioon, dt=dt)
+        self.esialgne_kiirus = esialgne_kiirus
+        self.nurk = nurk
         self.suurus = suurus
         self.ekraan = ekraan
         self.värv = värv
+        self.tüüp = None
         
     @abstractmethod
     def _joonista_(self) -> None:
@@ -25,3 +28,21 @@ class Objekt(KinemaatikaMudel):
     def protsess(self) -> None:
         self._joonista_()
         self.__uuenda__()
+
+    @property
+    def objekti_andmed_võtja(self) -> dict:
+        """
+        Tagastab objekti andmed. Seda kutsutakse simulatsiooni 
+        lõpus, et näidata kasutajale kulunud aega ja läbitud vahemaad.
+        """
+        return {
+            "tüüp": self.tüüp,
+            "suurus": self.suurus,
+            "värv": self.värv,
+            "positsioon": (self.positsioon_x, self.positsioon_y),
+            "gravitatsioon": self.gravitatsioon,
+            "esialgne_kiirus": self.esialgne_kiirus,
+            "nurk": self.nurk,
+            "aeg": self.aeg,
+            "dt": self.dt
+        }

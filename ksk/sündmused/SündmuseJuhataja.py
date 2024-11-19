@@ -35,4 +35,4 @@ class SündmuseJuhataja:
                 del vana_gui
                 
                 for objekt in self.ekraan.objektid:
-                    objekt.alguspunkti_seadja((sündmus.w, sündmus.h))
+                    objekt.alguspunkti_seadja((sündmus.w, sündmus.h-sündmus.h/andmed["gui_pikkus"]))

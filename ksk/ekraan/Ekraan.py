@@ -46,6 +46,8 @@ class Ekraan:
         """
         objekt.alguspunkti_seadja((self.suurus_x, self.suurus_y-self.suurus_y/andmed["gui_pikkus"]))
         self.objektid.append(objekt)
+
+        # andmed["objektid"].append(objekt.objekti_andmed_võtja)
     
     @property
     def ekraani_võtja(self):

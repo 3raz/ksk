@@ -54,17 +54,8 @@ class KinemaatikaMudel:
         self.kiirus_y = self.esialgne_kiirus * math.sin(self.nurk)
 
     def alguspunkti_seadja(self, punkt: tuple) -> None:
+        """
+        Joonistab objekti offset'iga erineva koordinatsüsteemi töötlemiseks.
+        """
         self.algus_x = punkt[0]
         self.algus_y = punkt[1]
-
-    @property
-    def objekti_andmed_võtja(self) -> dict:
-        """
-        Tagastab objekti andmed. Seda kutsutakse simulatsiooni 
-        lõpus, et näidata kasutajale kulunud aega ja läbitud vahemaad.
-        """
-        return {
-            "positsioon": (self.positsioon_x, self.positsioon_y),
-            "kiirus": (self.kiirus_x, self.kiirus_y),
-            "aeg": self.aeg
-        }

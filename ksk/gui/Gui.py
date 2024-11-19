@@ -21,30 +21,24 @@ class GUIEkraan(UIWindow):
         self.pikkus = andmed["gui_pikkus"]
         super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, object_id='#gui_window', resizable=False, draggable=False)
 
+        # See kustutab tiitliriba GUI sujuvamaks integreerimiseks 
+        if self.title_bar is not None:
+            self.title_bar.kill()
+            self.title_bar = None
+
+        # See kustutab sulgemisnupu GUI sujuvamaks integreerimiseks
+        if self.close_window_button is not None:
+            self.close_window_button.kill()
+            self.close_window_button = None
+
         self.margin_vertical = self.rect.height/100
         self.margin_horizontal = self.rect.width/100
 
-        self.test_slider = UIHorizontalSlider(pygame.Rect((int(self.margin_horizontal),
-                                                           self.margin_vertical),
-                                                          (240, 25)),
-                                              50.0,
-                                              (0.0, 100.0),
-                                              self.ui_manager,
-                                              container=self,
-                                              click_increment=5)
+        self.test_slider = UIHorizontalSlider(pygame.Rect((self.margin_horizontal, self.margin_vertical+30), (240, 25)), 50.0, (0.0, 100.0), self.ui_manager, container=self, click_increment=5)
 
-        self.slider_label = UILabel(pygame.Rect((int(self.rect.width / 2) + 250,
-                                                 int(self.rect.height * 0.70)),
-                                                (28, 25)),
-                                    str(int(self.test_slider.get_current_value())),
-                                    self.ui_manager,
-                                    container=self)
+        self.slider_label = UILabel(pygame.Rect((self.margin_horizontal, self.margin_vertical), (240, 25)), str(int(self.test_slider.get_current_value())), self.ui_manager, container=self)
 
-        self.test_text_entry = UITextEntryLine(pygame.Rect((int(self.rect.width / 2),
-                                                            int(self.rect.height * 0.50)),
-                                                           (200, -1)),
-                                               self.ui_manager,
-                                               container=self)
+        self.test_text_entry = UITextEntryLine(pygame.Rect((int(self.rect.width / 2), int(self.rect.height * 0.50)), (200, -1)), self.ui_manager, container=self)
         self.test_text_entry.set_forbidden_characters('numbers')
 
         current_resolution_string = 'Item 1'

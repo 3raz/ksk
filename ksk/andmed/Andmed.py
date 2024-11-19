@@ -29,11 +29,11 @@ class Andmed:
             del self.andmed[key]
 
     def laadi_failist(self):
-        with open(self.fn, 'r') as f:
+        with open(self.fn, 'r', encoding="UTF-8") as f:
             self.andmed = json.load(f)
 
     def salvesta_faili(self):
-        with open(self.fn, 'w') as f:
+        with open(self.fn, 'w', encoding="UTF-8") as f:
             json.dump(self.andmed, f, indent=4)
 
     def alusta_perioodiline_salvestus(self):
