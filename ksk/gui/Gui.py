@@ -19,7 +19,7 @@ class GUIEkraan(UIWindow):
     def __init__(self, ui_manager):
         ekraani_suurus_x, ekraani_suurus_y  = andmed["resolution"]
         self.pikkus = andmed["gui_pikkus"]
-        super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, window_display_title='GUI', object_id='#gui_window', resizable=False)
+        super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, object_id='#gui_window', resizable=False, draggable=False)
 
         self.margin_vertical = self.rect.height/100
         self.margin_horizontal = self.rect.width/100
@@ -86,11 +86,6 @@ class GUIEkraan(UIWindow):
                                                   self.ui_manager,
                                                   container=self)
 
-        self.health_bar = UIScreenSpaceHealthBar(pygame.Rect((int(self.rect.width / 9),
-                                                              int(self.rect.height * 0.7)),
-                                                             (200, 30)),
-                                                 self.ui_manager,
-                                                 container=self)
 
     def update(self, time_delta):
         super().update(time_delta)
