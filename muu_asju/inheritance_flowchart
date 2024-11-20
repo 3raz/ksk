@@ -1,15 +1,15 @@
 digraph "Inheritance flowchart" {
 	main
+	Andmed
 	Ekraan
-	GUI
+	Gui
 	Juhataja
 	KinemaatikaMudel
 	Objekt
 	Ruut
 	"Sfäär"
 	"SündmuseJuhataja"
-	Ekraan -> type
-	GUI -> UIWindow
+	Gui -> UIWindow
 	Objekt -> KinemaatikaMudel
 	Ruut -> Objekt
 	"Sfäär" -> Objekt

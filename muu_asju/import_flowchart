@@ -1,7 +1,8 @@
 digraph "Import flowchart" {
 	main
+	Andmed
 	Ekraan
-	GUI
+	Gui
 	Juhataja
 	KinemaatikaMudel
 	Objekt
@@ -9,13 +10,18 @@ digraph "Import flowchart" {
 	"Sfäär"
 	"SündmuseJuhataja"
 	main -> Juhataja
-	main -> "Sfäär"
-	Ekraan -> GUI
+	Ekraan -> Gui
+	Ekraan -> Andmed
+	Gui -> Andmed
 	Juhataja -> Ekraan
-	Juhataja -> GUI
+	Juhataja -> Gui
+	Juhataja -> "Sfäär"
+	Juhataja -> Ruut
+	Juhataja -> Andmed
+	"Sfäär" -> Objekt
 	Objekt -> KinemaatikaMudel
 	Ruut -> Objekt
-	"Sfäär" -> Objekt
 	"SündmuseJuhataja" -> Ekraan
-	"SündmuseJuhataja" -> GUI
+	"SündmuseJuhataja" -> Gui
+	"SündmuseJuhataja" -> Andmed
 }
