@@ -40,7 +40,6 @@ class Juhataja:
         """
         Põhiprogramm tsükel
         """
-        print(andmed["objektid"])
         if andmed["objektid"] != []:
             for o in andmed["objektid"]:
                 self.ekraan.lisa_objekti(self.serialiseerija(o))

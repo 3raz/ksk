@@ -15,8 +15,6 @@
 ##################################################
 
 from juhatajad.Juhataja import Juhataja
-from mudlid.Sfäär import Sfäär
-from mudlid.Ruut import Ruut
 
 class Main:
     def __init__(self):
@@ -30,5 +28,4 @@ if __name__ == "__main__":
     Põhiprogramm
     """
     main = Main()
-
     main.jookse()

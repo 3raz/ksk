@@ -44,3 +44,6 @@ class Andmed:
 
         thread = threading.Thread(target=salvesta_perioodiliselt, daemon=True)
         thread.start()
+
+    def __del__(self):
+        self.salvesta_faili()
