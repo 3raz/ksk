@@ -10,7 +10,6 @@ digraph "Import flowchart" {
 	"Sfäär"
 	"SündmuseJuhataja"
 	main -> Juhataja
-	Ekraan -> Gui
 	Ekraan -> Andmed
 	Gui -> Andmed
 	Juhataja -> Ekraan

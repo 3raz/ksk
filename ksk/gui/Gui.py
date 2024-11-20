@@ -4,11 +4,9 @@ from andmed.Andmed import Andmed
 import pygame_gui
 
 from pygame_gui.elements import UIWindow
-from pygame_gui.elements import UIButton
 from pygame_gui.elements import UIHorizontalSlider
 from pygame_gui.elements import UITextEntryLine
 from pygame_gui.elements import UIDropDownMenu
-from pygame_gui.elements import UIScreenSpaceHealthBar
 from pygame_gui.elements import UILabel
 
 import pygame

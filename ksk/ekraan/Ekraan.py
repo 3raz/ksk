@@ -1,5 +1,4 @@
 import pygame
-from gui.Gui import GUI
 from andmed.Andmed import Andmed
 
 andmed = Andmed().andmed
