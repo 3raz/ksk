@@ -3,6 +3,7 @@ digraph "Import flowchart" {
 	Andmed
 	Ekraan
 	Gui
+	GuiParser
 	Juhataja
 	KinemaatikaMudel
 	Objekt
@@ -12,6 +13,7 @@ digraph "Import flowchart" {
 	main -> Juhataja
 	Ekraan -> Andmed
 	Gui -> Andmed
+	GuiParser -> Gui
 	Juhataja -> Ekraan
 	Juhataja -> Gui
 	Juhataja -> "Sfäär"
@@ -23,4 +25,5 @@ digraph "Import flowchart" {
 	"SündmuseJuhataja" -> Ekraan
 	"SündmuseJuhataja" -> Gui
 	"SündmuseJuhataja" -> Andmed
+	"SündmuseJuhataja" -> "Sfäär"
 }

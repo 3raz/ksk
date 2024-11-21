@@ -3,6 +3,7 @@ digraph "Inheritance flowchart" {
 	Andmed
 	Ekraan
 	Gui
+	GuiParser
 	Juhataja
 	KinemaatikaMudel
 	Objekt
