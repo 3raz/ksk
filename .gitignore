@@ -162,7 +162,15 @@ cython_debug/
 #.idea/
 
 temp.py
+temp1.py
 temp2.py
 temp3.py
 temp4.py
 temp5.py
+
+output.py
+output1.py
+output2.py
+output3.py
+output4.py
+output5.py
