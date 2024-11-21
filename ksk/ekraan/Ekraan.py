@@ -36,6 +36,12 @@ class Ekraan:
         """
         self.ekraan.fill(self.tapeedi_värv)
     
+    def kustuta_objekte(self):
+        """
+        Kustutab kõike objekte
+        """
+        self.objektid = []
+    
     def värvi_seadja(self, värv):
         self.tapeedi_värv = värv
         

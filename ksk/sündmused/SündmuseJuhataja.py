@@ -3,9 +3,9 @@ import pygame_gui
 import sys
 from gui.Gui import GUIEkraan
 from andmed.Andmed import Andmed
+from mudlid.Sfäär import Sfäär
 
-a = Andmed()
-
+andmed = Andmed().andmed
 
 class SündmuseJuhataja:
     
@@ -28,9 +28,18 @@ class SündmuseJuhataja:
                 sys.exit()
             self.gui.manager.process_events(sündmus)
 
+            if sündmus.type == pygame_gui.UI_BUTTON_PRESSED or sündmus.type == pygame.VIDEORESIZE:
+                andmed["gui_andmed"]["esialgne_kiirus"] = float(self.gui.kinematics_window.nurk.get_text())
+                andmed["gui_andmed"]["nurk"] = self.gui.kinematics_window.nurk.get_text()
+                andmed["gui_andmed"]["gravitatsioon"] = float(self.gui.kinematics_window.gravitatsioon.get_text())
+                andmed["gui_andmed"]["dt"] = float(self.gui.kinematics_window.dt.get_text())
+                andmed["gui_andmed"]["suurus"] =float(self.gui.kinematics_window.suurus.get_text())
+                andmed["gui_andmed"]["värv"] = [int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')]
+
+
             # Kustutab vana GUI ja ekraani ära ja initsialiseerib uued korraliku suurustega
             if sündmus.type == pygame.VIDEORESIZE:
-                self.a.andmed["resolution"] = [sündmus.w, sündmus.h]
+                andmed["resolution"] = [sündmus.w, sündmus.h]
                 vana_ekraan = self.ekraan.ekraan
                 vana_gui = self.gui.manager
                 self.ekraan.ekraan = pygame.display.set_mode((sündmus.w, sündmus.h), pygame.RESIZABLE)
@@ -43,4 +52,19 @@ class SündmuseJuhataja:
                 del vana_gui
                 
                 for objekt in self.ekraan.objektid:
-                    objekt.alguspunkti_seadja((sündmus.w, sündmus.h-sündmus.h/self.a.andmed["gui_pikkus"]))
+                    objekt.alguspunkti_seadja((sündmus.w, sündmus.h-sündmus.h/andmed["gui_pikkus"]))
+            
+
+            if sündmus.type == pygame_gui.UI_BUTTON_PRESSED:
+                if sündmus.ui_element == self.gui.kinematics_window.puhasta:
+                    self.ekraan.kustuta_objekte()
+                if sündmus.ui_element == self.gui.kinematics_window.lisa:
+                    self.ekraan.lisa_objekti(Sfäär(self.ekraan.ekraan,
+                                                   float(self.gui.kinematics_window.esialgne_kiirus.get_text()),
+                                                   float(self.gui.kinematics_window.nurk.get_text()), 
+                                                   gravitatsioon=float(self.gui.kinematics_window.gravitatsioon.get_text()),
+                                                   dt=float(self.gui.kinematics_window.dt.get_text()),
+                                                   suurus=float(self.gui.kinematics_window.suurus.get_text()),
+                                                   värv=tuple([int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')])))
+            
+

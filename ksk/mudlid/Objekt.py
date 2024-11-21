@@ -3,8 +3,8 @@ from mudlid.KinemaatikaMudel import KinemaatikaMudel
 from abc import abstractmethod
 
 class Objekt(KinemaatikaMudel):
-    def __init__(self, ekraan, esialgne_kiirus, nurk, gravitatsioon=9.8, dt=0.001, suurus=10, värv=(255,0,0)) -> None:
-        super().__init__(esialgne_kiirus, nurk, gravitatsioon=gravitatsioon, dt=dt)
+    def __init__(self, ekraan, esialgne_kiirus, nurk, gravitatsioon, dt, suurus, värv) -> None:
+        super().__init__(esialgne_kiirus, nurk, gravitatsioon, dt)
         self.esialgne_kiirus = esialgne_kiirus
         self.nurk = nurk
         self.suurus = suurus

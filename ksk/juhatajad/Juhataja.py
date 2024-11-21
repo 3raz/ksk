@@ -51,7 +51,7 @@ class Juhataja:
                 break
 
             for i in range(len(self.ekraan.objektid)):
-                self.ekraan.objektid[i].dt = self.dt/self.dt_kiirus
+                self.ekraan.objektid[i].dt = self.dt/(1/andmed["gui_andmed"]["dt"])
 
             self.dt = self.clock.tick(60)
             

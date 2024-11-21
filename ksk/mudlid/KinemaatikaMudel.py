@@ -1,7 +1,7 @@
 import math
 
 class KinemaatikaMudel:
-    def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float = 9.8, dt: float = 0.001) -> None:
+    def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float) -> None:
         self.esialgne_kiirus = esialgne_kiirus
         self.nurk = math.radians(nurk)
         self.gravitatsioon = gravitatsioon
