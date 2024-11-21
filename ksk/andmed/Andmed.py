@@ -1,6 +1,7 @@
 import json
 import threading
 import time
+import ctypes
 
 
 class Andmed:
@@ -31,6 +32,13 @@ class Andmed:
     def laadi_failist(self):
         with open(self.fn, 'r', encoding="UTF-8") as f:
             self.andmed = json.load(f)
+
+        # Kui resolution on liiga suur ekraani jaoks (Andmed.json on laadinud teistest arvutist) siis parandab resolutionit.
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        [w, h] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
+        if self.andmed["resolution"][0] > w or self.andmed["resolution"][1] > h:
+            self.andmed["resolution"] = [w-50,h-50] 
 
     def salvesta_faili(self):
         with open(self.fn, 'w', encoding="UTF-8") as f:
