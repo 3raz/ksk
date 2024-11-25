@@ -20,7 +20,7 @@ class GUIEkraan(UIWindow):
         self.pikkus = andmed["gui_pikkus"]
         super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, object_id='#gui_window', resizable=False, draggable=False)
 
-        # See kustutab tiitliriba GUI sujuvamaks integreerimiseks 
+        # See kustutab tiitliriba GUI sujuvamaks integreerimiseks ekraaniga (et GUI ei näe välja nagu iseseisev osa, kuid klanitud osa põhiprogrammis). 
         if self.title_bar is not None:
             self.title_bar.kill()
             self.title_bar = None
