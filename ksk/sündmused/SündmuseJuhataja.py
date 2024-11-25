@@ -47,6 +47,7 @@ class SündmuseJuhataja:
                 self.gui.manager = pygame_gui.UIManager((sündmus.w, sündmus.h))
                 self.gui.kinematics_window = GUIEkraan(self.gui.manager)
                 self.ekraan.ekraan.blit(vana_ekraan, (0,0))
+                self.ekraan.värskenda_resolution()
 
                 del vana_ekraan
                 del vana_gui

@@ -22,6 +22,9 @@ class Ekraan:
             self.objektid = []
             self._initialized = True
 
+    def värskenda_resolution(self):
+        self.suurus_x, self.suurus_y = andmed["resolution"]
+
     def joonista_objekte(self):
         """
         Joonistab kõike objekte, mis asuvad objekti järjendis.
