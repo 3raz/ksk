@@ -20,6 +20,8 @@ class GUIEkraan(UIWindow):
         self.pikkus = andmed["gui_pikkus"]
         super().__init__(pygame.Rect((0, ekraani_suurus_y-ekraani_suurus_y/self.pikkus), (ekraani_suurus_x, ekraani_suurus_y/self.pikkus)), ui_manager, object_id='#gui_window', resizable=False, draggable=False)
 
+        self.o = None
+
         # See kustutab tiitliriba GUI sujuvamaks integreerimiseks ekraaniga (et GUI ei näe välja nagu iseseisev osa, kuid klanitud osa põhiprogrammis). 
         if self.title_bar is not None:
             self.title_bar.kill()
@@ -49,7 +51,7 @@ class GUIEkraan(UIWindow):
         self.esialgne_kiirus = UITextEntryLine(pygame.Rect((esialgne_kiirus_left, measurements["rida_2"]), (esialgne_kiirus_width, 25)), self.ui_manager, container=self)
         self.esialgne_kiirus.set_text(str(andmed["gui_andmed"]["esialgne_kiirus"]))
         if self.esialgne_kiirus.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.esialgne_kiirus.set_text("0")
         else:
             sõne = self.esialgne_kiirus.get_text()
@@ -62,7 +64,7 @@ class GUIEkraan(UIWindow):
         self.nurk = UITextEntryLine(pygame.Rect((nurk_left, measurements["rida_2"]), (nurk_width, 25)), self.ui_manager, container=self)
         self.nurk.set_text(str(andmed["gui_andmed"]["nurk"]))
         if self.nurk.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.nurk.set_text("0")
         else:
             sõne = self.nurk.get_text()
@@ -75,7 +77,7 @@ class GUIEkraan(UIWindow):
         self.gravitatsioon = UITextEntryLine(pygame.Rect((gravitatsioon_left, measurements["rida_2"]), (gravitatsioon_width, 25)), self.ui_manager, container=self)
         self.gravitatsioon.set_text(str(andmed["gui_andmed"]["gravitatsioon"]))
         if self.gravitatsioon.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.gravitatsioon.set_text("0")
         else:
             sõne = self.gravitatsioon.get_text()
@@ -88,7 +90,7 @@ class GUIEkraan(UIWindow):
         self.suurus = UITextEntryLine(pygame.Rect((suurus_left, measurements["rida_2"]), (suurus_width, 25)), self.ui_manager, container=self)
         self.suurus.set_text(str(andmed["gui_andmed"]["suurus"]))
         if self.suurus.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.suurus.set_text("0")
         else:
             sõne = self.suurus.get_text()
@@ -102,7 +104,7 @@ class GUIEkraan(UIWindow):
         _ = andmed["gui_andmed"]["värv"]
         self.värv.set_text(str(f"{_[0]},{_[1]},{_[2]}"))
         if self.värv.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.värv.set_text("0,0,0")
         else:
             sõne = self.värv.get_text()
@@ -115,7 +117,7 @@ class GUIEkraan(UIWindow):
         self.dt = UITextEntryLine(pygame.Rect((dt_left, measurements["rida_2"]), (dt_width, 25)), self.ui_manager, container=self)
         self.dt.set_text(str(andmed["gui_andmed"]["dt"]))
         if self.dt.get_text().strip() == '':
-            sõne = "Undefined"
+            sõne = "Määratlemata"
             self.dt.set_text("0")
         else:
             sõne = self.dt.get_text()
@@ -127,12 +129,12 @@ class GUIEkraan(UIWindow):
 
         drop_down_left = self.margin_horizontal
         drop_down_width = 50+self.margin_horizontal*6.5
-        self.test_drop_down_menu = UIDropDownMenu([''],
+        self.objekti_menüü = UIDropDownMenu([''],
                                                     '',
                                                   pygame.Rect((drop_down_left, measurements["rida_4"]), (drop_down_width, 25)),
                                                   self.ui_manager,
                                                   container=self)
-        self.test_drop_down_menu.expand_direction = "up"
+        self.objekti_menüü.expand_direction = "up"
 
         lisa_left = self.margin_horizontal*16
         lisa_width = 50+self.margin_horizontal*6.5
@@ -143,11 +145,58 @@ class GUIEkraan(UIWindow):
         self.puhasta = UIButton(pygame.Rect((puhasta_left, measurements["rida_4"]), (puhasta_width, 25)), "Puhasta ekraani", self.ui_manager,container=self)
 
 
+        self.aeg = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (gravitatsioon_width, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
+
+    def set_most_recent_object(self, o: object):
+        self.o = o
+        
+
+
     def update(self, time_delta):
         super().update(time_delta)
+        if self.o != None:
+            self.aeg.set_text("Reaalaeg: " + str(round(self.o.aeg, 2)))
 
         if self.test_slider.has_moved_recently:
             print(self.test_slider.get_current_value())
+
+    @staticmethod
+    def approximate_color(rgb):
+        """
+        Ligikaudne RGB-väärtuse värvinimi.
+        """
+
+        reference_colors = {
+            "must": (0, 0, 0),
+            "valge": (255, 255, 255),
+            "punane": (255, 0, 0),
+            "roheline": (0, 255, 0),
+            "sinine": (0, 0, 255),
+            "kollane": (255, 255, 0),
+            "tsüaan": (0, 255, 255),
+            "magenta": (255, 0, 255),
+            "hall": (128, 128, 128),
+            "oranž": (255, 165, 0),
+            "roosa": (255, 182, 193),
+            "lilla": (128, 0, 200),
+            "tumepunane": (139, 0, 0),
+            "tumeroheline": (0, 100, 0),
+            "dark tumesinine": (0, 0, 139),
+            "helesinine": (173, 216, 230),
+            "heleroheline": (144, 238, 144),
+            "helepunane": (255, 102, 102),
+            "tumehall": (64, 64, 64),
+            "helehall": (192, 192, 192),
+        }
+
+        # Kaugus kahe punktide vahel
+        def color_distance(c1, c2):
+            return ((c1[0] - c2[0]) ** 2 + (c1[1] - c2[1]) ** 2 + (c1[2] - c2[2]) ** 2) ** 0.5
+
+        # Leiab kaugusi color_distance'i funktsiooniga len(reference_colors)'iga siis tagastab see värv, mis on kõige lähedal.
+        closest_color = min(reference_colors, key=lambda color: color_distance(rgb, reference_colors[color]))
+
+        return closest_color
         
 
 class GUI:

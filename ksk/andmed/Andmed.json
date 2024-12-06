@@ -2,20 +2,20 @@
     "salvestamise_intervall": 30,
     "resolution": [
         1920,
-        568
+        1009
     ],
     "gui_pikkus": 6,
     "gui_andmed": {
         "esialgne_kiirus": 60.0,
         "nurk": "60",
-        "gravitatsioon": 9.8,
+        "gravitatsioon": -90.8,
         "suurus": 10.0,
         "v\u00e4rv": [
-            100,
-            200,
-            200
+            128,
+            128,
+            128
         ],
-        "dt": 0.005
+        "dt": 0.001
     },
     "objektid": [
         {

@@ -16,12 +16,14 @@ class KinemaatikaMudel:
         self.algus_x = 0
         self.algus_y = 0
 
+        self.maal = False
+
     def __arvuta_positsiooni__(self) -> None:
         """
         Uuenda objekti asukohta kiiruse ja aja järgi
         """
         if self.algus_y - self.positsioon_y > self.algus_y:
-            del self
+            self.maal = True
             return
         self.positsioon_x = self.kiirus_x * self.aeg
         self.positsioon_y = (self.kiirus_y * self.aeg) - (0.5 * self.gravitatsioon * self.aeg ** 2)
@@ -38,7 +40,8 @@ class KinemaatikaMudel:
         """
         self.__arvuta_positsiooni__()
         self.__arvuta_kiiruse__()
-        self.aeg += self.dt
+        if not self.maal:
+            self.aeg += self.dt
 
     
     def lähtesta_seadja(self, esialgne_kiirus: float, nurk: float) -> None:
