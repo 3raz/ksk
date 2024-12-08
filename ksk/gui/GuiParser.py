@@ -1,8 +1,15 @@
 from gui.Gui import GUI
 
 class GuiParser:
+    """
+    Töötleb GUI tekstikastide andmetega
+    """
+
     @staticmethod
     def värv(sisend):
+        """
+        Jälgib, et värv on korralikult sisestatud ja tagasab selle väärtuse korralikus vormis, kui on.
+        """
         try:
             rgb = tuple([int(x) for x in sisend.strip().split(',')])
         except:
@@ -19,6 +26,9 @@ class GuiParser:
     
     @staticmethod
     def nurk(sisend):
+        """
+        Jälgib, et nurk on korralikult sisestatud ja tagasab selle väärtuse korralikus vormis, kui on.
+        """
         try:
             nurk = float(sisend)
         except:
@@ -30,6 +40,9 @@ class GuiParser:
     
     @staticmethod
     def positiivne_number(sisend):
+        """
+        Jälgib, et posatiivne arv on korralikult sisestatud ja tagasab selle väärtuse korralikus vormis, kui on.
+        """
         try:
             arv = float(sisend)
         except:
@@ -40,6 +53,9 @@ class GuiParser:
     
     @staticmethod
     def number(sisend):
+        """
+        Jälgib, et arv on korralikult sisestatud ja tagasab selle väärtuse korralikus vormis, kui on.
+        """
         try:
             arv = float(sisend)
         except:

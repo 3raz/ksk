@@ -32,19 +32,13 @@ class GUIEkraan(UIWindow):
             self.close_window_button.kill()
             self.close_window_button = None
 
+
+        # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA -------------------- #  
+
         self.margin_vertical = self.rect.height/100
         self.margin_horizontal = self.rect.width/100
 
         measurements = {"veerg_1": self.margin_horizontal*1, "rida_1": self.margin_vertical*1, "veerg_2": self.margin_horizontal*16, "rida_2": self.margin_vertical*16, "veerg_3": self.margin_horizontal*31, "rida_3": self.margin_vertical*31, "veerg_4": self.margin_horizontal*46, "rida_4": self.margin_vertical*46, "veerg_5": self.margin_horizontal*61, "rida_5": self.margin_vertical*61, "veerg_6": self.margin_horizontal*76, "rida_6": self.margin_vertical*76, "veerg_7": self.margin_horizontal*91, "rida_7": self.margin_vertical*91, "veerg_8": self.margin_horizontal*106, "rida_8": self.margin_vertical*106}
-        slider_width = 100+self.margin_horizontal*6.5
-        slider_left = self.margin_horizontal*5000
-        self.test_slider = UIHorizontalSlider(pygame.Rect((slider_left, self.margin_vertical*15), (slider_width, 25)), 50.0, (0.0, 100.0), self.ui_manager, container=self, click_increment=5)
-        self.slider_label = UILabel(pygame.Rect((slider_left, 0), (slider_width, 25)), str(int(self.test_slider.get_current_value())), self.ui_manager, container=self)
-
-        
-
-
-
 
         esialgne_kiirus_left = measurements["veerg_1"]
         esialgne_kiirus_width = 50+self.margin_horizontal*6.5
@@ -151,16 +145,21 @@ class GUIEkraan(UIWindow):
 
         self.aeg = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (gravitatsioon_width, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
 
+        # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA LÕPP -------------------- #  
+
     def set_most_recent_object(self, o: object):
+        """
+        Seab kõige uusima objekti
+        """
         self.o = o
 
     def update(self, time_delta):
+        """
+        Värskendab aja tekstisildi ja 
+        """
         super().update(time_delta)
         if self.o != None:
             self.aeg.set_text("Reaalaeg: " + str(round(self.o.aeg, 2)))
-
-        if self.test_slider.has_moved_recently:
-            print(self.test_slider.get_current_value())
 
     @staticmethod
     def approximate_color(rgb):

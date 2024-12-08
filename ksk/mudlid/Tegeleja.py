@@ -2,6 +2,9 @@ from mudlid.Sfäär import Sfäär
 from mudlid.Ruut import Ruut
 
 class Tegeleja:
+    """
+    vajalik lisa klass, muidu ei saaks funktsioon serialiseerija jadaga erinevates kohtades.
+    """
     def __init__(self, ekraan):
         self.ekraan = ekraan
 

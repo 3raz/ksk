@@ -55,4 +55,7 @@ class Juhataja:
         pygame.quit()
 
     def lõpeta(self):
+        """
+        Seab jooksmise muutuja valeks kui programm on lõpetanud
+        """
         self.jooksmas = False

@@ -20,7 +20,9 @@ class SündmuseJuhataja:
         self.a = Andmed()
 
     def töötle_sündmustega(self):
-        """Töötle pygame'i sündmustega"""
+        """
+        Töötleb pygame'i ja pygame_gui sündmustega
+        """
         for sündmus in pygame.event.get():
             if sündmus.type == pygame.QUIT:
                 # Python ei taga destruktorite kutsumist, seega tuleb kasutada seda inetut lahendust
@@ -32,8 +34,11 @@ class SündmuseJuhataja:
                 sys.exit()
             self.gui.manager.process_events(sündmus)
 
+            # pygame_gui värskendab ja kustutab kõik andmed. Seega peaks käsitsi salvestama.
             if sündmus.type == pygame_gui.UI_BUTTON_PRESSED or sündmus.type == pygame.VIDEORESIZE:
                 o = self.create_object()
+
+                # Jälgib, et objekt on korralikult loonud.
                 if o != None:
                     andmed["gui_andmed"]["esialgne_kiirus"] = float(self.gui.kinematics_window.nurk.get_text())
                     andmed["gui_andmed"]["nurk"] = self.gui.kinematics_window.nurk.get_text()
@@ -42,6 +47,7 @@ class SündmuseJuhataja:
                     andmed["gui_andmed"]["suurus"] =float(self.gui.kinematics_window.suurus.get_text())
                     andmed["gui_andmed"]["värv"] = [int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')]
 
+            # Määrab muutujat rippmenüü praeguse tekstiga, kui rippmenüü praeguse tekst on muutnud. 
             if sündmus.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                 andmed["cur_object"] = sündmus.text
 
@@ -63,10 +69,14 @@ class SündmuseJuhataja:
                 for objekt in self.ekraan.objektid:
                     objekt.alguspunkti_seadja((sündmus.w, sündmus.h-sündmus.h/andmed["gui_pikkus"]))
             
-
+            # Jälgib mis juhtus, kui nupp on vajutatud
             if sündmus.type == pygame_gui.UI_BUTTON_PRESSED:
+                
+                # Puhasta ekraan nupp
                 if sündmus.ui_element == self.gui.kinematics_window.puhasta:
                     self.ekraan.kustuta_objekte()
+
+                # Objekti lisamise nupp
                 if sündmus.ui_element == self.gui.kinematics_window.lisa:
                     o = self.create_object()
                     if o == None:
@@ -89,6 +99,7 @@ class SündmuseJuhataja:
                         self.gui.kinematics_window.objekti_menüü.add_options([uue_objekti_nimi])
                         print(andmed["session_objects"][uue_objekti_nimi])
 
+                # Objekti lisamise nupp rippumenüüst
                 if sündmus.ui_element == self.gui.kinematics_window.lisa_järjendist:
                     try:
                         self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(andmed["session_objects"][andmed["cur_object"]]))
@@ -100,6 +111,8 @@ class SündmuseJuhataja:
         """
         Lisab objekti ekraanile antud andmetega. Saaks ka selle funktsiooni kasutada info kontrollijana.
         """
+
+        # Loeb kõik andmed
         esialgne_kiirus = self.gui_parser.positiivne_number(self.gui.kinematics_window.esialgne_kiirus.get_text())
         nurk = self.gui_parser.nurk(self.gui.kinematics_window.nurk.get_text())
         gravitatsioon = self.gui_parser.number(self.gui.kinematics_window.gravitatsioon.get_text())
@@ -107,15 +120,17 @@ class SündmuseJuhataja:
         suurus = self.gui_parser.positiivne_number(self.gui.kinematics_window.suurus.get_text())
         värv = self.gui_parser.värv(self.gui.kinematics_window.värv.get_text())
 
+        # vaikeväärtus
         if dt == None:
             dt = 0.001
 
+        # viga, kui midagi on null
         info = [esialgne_kiirus, nurk, gravitatsioon, suurus, värv]
         for asi in info:
             if asi == None:
                 return None
 
-
+        # Uue objekti on loonud antud andmetega
         o = Sfäär(self.ekraan.ekraan,
                                         esialgne_kiirus,
                                         nurk, 
