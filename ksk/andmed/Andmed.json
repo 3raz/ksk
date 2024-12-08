@@ -8,12 +8,12 @@
     "gui_andmed": {
         "esialgne_kiirus": 60.0,
         "nurk": "60",
-        "gravitatsioon": -90.8,
+        "gravitatsioon": 9.8,
         "suurus": 10.0,
         "v\u00e4rv": [
-            128,
-            128,
-            128
+            5,
+            255,
+            255
         ],
         "dt": 0.001
     },

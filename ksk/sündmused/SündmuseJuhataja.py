@@ -4,8 +4,8 @@ import sys
 from gui.Gui import GUIEkraan
 from andmed.Andmed import Andmed
 from mudlid.Sfäär import Sfäär
+from mudlid.Tegeleja import Tegeleja
 from gui.GuiParser import GuiParser
-from threading import Thread
 
 andmed = Andmed().andmed
 
@@ -15,6 +15,7 @@ class SündmuseJuhataja:
         self.ekraan = ekraan
         self.gui = gui
         self.gui_parser = GuiParser()
+        self.tegeleja = Tegeleja(self.ekraan)
 
         self.a = Andmed()
 
@@ -41,6 +42,8 @@ class SündmuseJuhataja:
                     andmed["gui_andmed"]["suurus"] =float(self.gui.kinematics_window.suurus.get_text())
                     andmed["gui_andmed"]["värv"] = [int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')]
 
+            if sündmus.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                andmed["cur_object"] = sündmus.text
 
             # Kustutab vana GUI ja ekraani ära ja initsialiseerib uued korraliku suurustega
             if sündmus.type == pygame.VIDEORESIZE:
@@ -70,8 +73,28 @@ class SündmuseJuhataja:
                         print("Bad info")
                     else:
                         self.gui.kinematics_window.set_most_recent_object(o)
-                        self.gui.kinematics_window.objekti_menüü.add_options([self.gui.kinematics_window.approximate_color(o.värv)])
+                        uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + " sfäär"
                         self.ekraan.lisa_objekti(o)
+                        print(andmed["session_objects"])
+                        while True:
+                            for key, _ in andmed["session_objects"].items():
+                                if key == uue_objekti_nimi:
+                                    try:
+                                        uue_objekti_nimi = uue_objekti_nimi[0:-1] + str(int(uue_objekti_nimi[-1])+1)
+                                    except ValueError:
+                                        uue_objekti_nimi = uue_objekti_nimi + " 1"
+                                    continue
+                            break
+                        andmed["session_objects"][uue_objekti_nimi] = o.objekti_andmed_võtja
+                        self.gui.kinematics_window.objekti_menüü.add_options([uue_objekti_nimi])
+                        print(andmed["session_objects"][uue_objekti_nimi])
+
+                if sündmus.ui_element == self.gui.kinematics_window.lisa_järjendist:
+                    try:
+                        self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(andmed["session_objects"][andmed["cur_object"]]))
+                    except KeyError:
+                        pass
+                    
 
     def create_object(self) -> object:
         """

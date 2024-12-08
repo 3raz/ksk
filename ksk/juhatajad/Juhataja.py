@@ -4,6 +4,7 @@ from ekraan.Ekraan import Ekraan
 from gui.Gui import GUI
 from mudlid.Sfäär import Sfäär
 from mudlid.Ruut import Ruut
+from mudlid.Tegeleja import Tegeleja
 from andmed.Andmed import Andmed
 
 andmed = Andmed().andmed
@@ -16,6 +17,7 @@ class Juhataja:
         self.ekraan = Ekraan()
         self.gui = GUI()
         self.sündmuseJuhataja = SündmuseJuhataja(self.ekraan, self.gui)
+        self.tegeleja = Tegeleja(self.ekraan)
 
         # Käivitamise kiirus, et objektid joonistatakse õigel ajal 
         self.clock = pygame.time.Clock()
@@ -24,17 +26,6 @@ class Juhataja:
         
         self.jooksmas = True
 
-    def serialiseerija(self, andmed: dict) -> object:
-        tüüp = andmed["tüüp"]
-
-        if tüüp == "Sfäär":
-            return Sfäär(self.ekraan.ekraan, andmed["esialgne_kiirus"], andmed["nurk"], gravitatsioon=andmed["gravitatsioon"], dt=andmed["dt"], suurus=andmed["suurus"], värv=andmed["värv"])
-
-        elif tüüp == "Ruut":
-            return Ruut(self.ekraan.ekraan, andmed["esialgne_kiirus"], andmed["nurk"], gravitatsioon=andmed["gravitatsioon"], dt=andmed["dt"], suurus=andmed["suurus"], värv=andmed["värv"])
-        
-        else:
-            return Sfäär(self.ekraan.ekraan, andmed["esialgne_kiirus"], andmed["nurk"], gravitatsioon=andmed["gravitatsioon"], dt=andmed["dt"], suurus=andmed["suurus"], värv=andmed["värv"])
 
     def programm(self):
         """
@@ -42,7 +33,7 @@ class Juhataja:
         """
         if andmed["objektid"] != []:
             for o in andmed["objektid"]:
-                self.ekraan.lisa_objekti(self.serialiseerija(o))
+                self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(o))
 
         while self.jooksmas:
             self.sündmuseJuhataja.töötle_sündmustega()

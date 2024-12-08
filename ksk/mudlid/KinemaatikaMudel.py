@@ -44,17 +44,16 @@ class KinemaatikaMudel:
             self.aeg += self.dt
 
     
-    def lähtesta_seadja(self, esialgne_kiirus: float, nurk: float) -> None:
+    def lähtesta_seadja(self) -> None:
         """
         Lähtesta
         """
-        self.esialgne_kiirus = esialgne_kiirus
-        self.nurk = math.radians(nurk)
         self.aeg = 0
         self.positsioon_x = 0
         self.positsioon_y = 0
         self.kiirus_x = self.esialgne_kiirus * math.cos(self.nurk)
         self.kiirus_y = self.esialgne_kiirus * math.sin(self.nurk)
+        self.maal = False
 
     def alguspunkti_seadja(self, punkt: tuple) -> None:
         """

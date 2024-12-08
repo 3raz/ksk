@@ -135,22 +135,24 @@ class GUIEkraan(UIWindow):
                                                   self.ui_manager,
                                                   container=self)
         self.objekti_menüü.expand_direction = "up"
+        
 
         lisa_left = self.margin_horizontal*16
         lisa_width = 50+self.margin_horizontal*6.5
-        self.lisa = UIButton(pygame.Rect((lisa_left, measurements["rida_4"]), (lisa_width, 25)), "Lisa Objekti", self.ui_manager,container=self)
+        self.lisa = UIButton(pygame.Rect((lisa_left, measurements["rida_4"]), (lisa_width, 25)), "Lisa Objekt", self.ui_manager,container=self)
 
         puhasta_left = measurements["veerg_3"]
         puhasta_width = 50+self.margin_horizontal*6.5
-        self.puhasta = UIButton(pygame.Rect((puhasta_left, measurements["rida_4"]), (puhasta_width, 25)), "Puhasta ekraani", self.ui_manager,container=self)
+        self.puhasta = UIButton(pygame.Rect((puhasta_left, measurements["rida_4"]), (puhasta_width, 25)), "Puhasta ekraan", self.ui_manager,container=self)
+
+        lisa_järjendist_width = 50+self.margin_horizontal*6.5
+        self.lisa_järjendist = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_4"]), (lisa_järjendist_width, 25)), "Lisa järjendist", self.ui_manager,container=self)
 
 
         self.aeg = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (gravitatsioon_width, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
 
     def set_most_recent_object(self, o: object):
         self.o = o
-        
-
 
     def update(self, time_delta):
         super().update(time_delta)
@@ -181,7 +183,7 @@ class GUIEkraan(UIWindow):
             "lilla": (128, 0, 200),
             "tumepunane": (139, 0, 0),
             "tumeroheline": (0, 100, 0),
-            "dark tumesinine": (0, 0, 139),
+            "tumesinine": (0, 0, 139),
             "helesinine": (173, 216, 230),
             "heleroheline": (144, 238, 144),
             "helepunane": (255, 102, 102),

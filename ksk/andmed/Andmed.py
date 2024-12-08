@@ -19,12 +19,13 @@ class Andmed:
             cls._eksemplar.andmed = {}
             cls._eksemplar.fn = fn
             cls._eksemplar.laadi_failist()
-            cls._eksemplar.alusta_perioodiline_salvestus()
         return cls._eksemplar
 
     def laadi_failist(self):
         with open(self.fn, 'r', encoding="UTF-8") as f:
             self.andmed = json.load(f)
+            self.andmed["session_objects"] = {}
+            self.andmed["cur_object"] = ""
 
         # Kui resolution on liiga suur ekraani jaoks (Andmed.json on laadinud teistest arvutist) siis parandab resolutionit.
         user32 = ctypes.windll.user32
@@ -34,17 +35,10 @@ class Andmed:
             self.andmed["resolution"] = [w-50,h-50] 
 
     def salvesta_faili(self):
+        del self.andmed["session_objects"]
+        del self.andmed["cur_object"]
         with open(self.fn, 'w', encoding="UTF-8") as f:
             json.dump(self.andmed, f, indent=4)
-
-    def alusta_perioodiline_salvestus(self):
-        def salvesta_perioodiliselt():
-            while True:
-                time.sleep(self.andmed["salvestamise_intervall"])
-                self.salvesta_faili()
-
-        thread = threading.Thread(target=salvesta_perioodiliselt, daemon=True)
-        thread.start()
 
     def __del__(self):
         self.salvesta_faili()
