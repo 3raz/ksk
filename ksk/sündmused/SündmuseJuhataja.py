@@ -85,7 +85,6 @@ class SündmuseJuhataja:
                         self.gui.kinematics_window.set_most_recent_object(o)
                         uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + " sfäär"
                         self.ekraan.lisa_objekti(o)
-                        print(andmed["session_objects"])
                         while True:
                             for key, _ in andmed["session_objects"].items():
                                 if key == uue_objekti_nimi:
@@ -97,13 +96,12 @@ class SündmuseJuhataja:
                             break
                         andmed["session_objects"][uue_objekti_nimi] = o.objekti_andmed_võtja
                         self.gui.kinematics_window.objekti_menüü.add_options([uue_objekti_nimi])
-                        print(andmed["session_objects"][uue_objekti_nimi])
 
                 # Objekti lisamise nupp rippumenüüst
                 if sündmus.ui_element == self.gui.kinematics_window.lisa_järjendist:
                     try:
                         self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(andmed["session_objects"][andmed["cur_object"]]))
-                    except KeyError:
+                    except:
                         pass
                     
 

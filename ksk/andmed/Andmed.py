@@ -24,7 +24,7 @@ class Andmed:
     def laadi_failist(self):
         with open(self.fn, 'r', encoding="UTF-8") as f:
             self.andmed = json.load(f)
-            self.andmed["session_objects"] = {}
+            self.andmed["session_objects"] = {'':''}
             self.andmed["cur_object"] = ""
 
         # Kui resolution on liiga suur ekraani jaoks (Andmed.json on laadinud teistest arvutist) siis parandab resolutionit.

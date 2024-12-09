@@ -123,7 +123,8 @@ class GUIEkraan(UIWindow):
 
         drop_down_left = self.margin_horizontal
         drop_down_width = 50+self.margin_horizontal*6.5
-        self.objekti_menüü = UIDropDownMenu([''],
+        järjend = [key for key, _ in andmed["session_objects"].items()]
+        self.objekti_menüü = UIDropDownMenu(järjend,
                                                     '',
                                                   pygame.Rect((drop_down_left, measurements["rida_4"]), (drop_down_width, 25)),
                                                   self.ui_manager,

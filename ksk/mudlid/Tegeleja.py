@@ -9,7 +9,10 @@ class Tegeleja:
         self.ekraan = ekraan
 
     def serialiseerija(self, andmed: dict) -> object:
-        tüüp = andmed["tüüp"]
+        try:
+            tüüp = andmed["tüüp"]
+        except TypeError:
+            return None
 
         if tüüp == "Sfäär":
             return Sfäär(self.ekraan.ekraan, andmed["esialgne_kiirus"], andmed["nurk"], gravitatsioon=andmed["gravitatsioon"], dt=andmed["dt"], suurus=andmed["suurus"], värv=andmed["värv"])
