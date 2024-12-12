@@ -35,10 +35,13 @@ class Andmed:
             self.andmed["resolution"] = [w-50,h-50] 
 
     def salvesta_faili(self):
+        temp1, temp2 = self.andmed["session_objects"], self.andmed["cur_object"]
         del self.andmed["session_objects"]
         del self.andmed["cur_object"]
         with open(self.fn, 'w', encoding="UTF-8") as f:
             json.dump(self.andmed, f, indent=4)
+        self.andmed["session_objects"], self.andmed["cur_object"] = temp1, temp2
+        
 
     def __del__(self):
         self.salvesta_faili()

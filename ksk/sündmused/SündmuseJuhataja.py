@@ -51,14 +51,22 @@ class SündmuseJuhataja:
             if sündmus.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                 andmed["cur_object"] = sündmus.text
 
+            button_pressed = False
+            if sündmus.type == pygame_gui.UI_BUTTON_PRESSED:
+                button_pressed = True
+
             # Kustutab vana GUI ja ekraani ära ja initsialiseerib uued korraliku suurustega
-            if sündmus.type == pygame.VIDEORESIZE:
-                andmed["resolution"] = [sündmus.w, sündmus.h]
+            if sündmus.type == pygame.VIDEORESIZE or (button_pressed and sündmus.ui_element == self.gui.kinematics_window.salvesta):
+                try:
+                    andmed["resolution"] = [sündmus.w, sündmus.h]
+                except AttributeError:
+                    sündmus.w, sündmus.h = andmed["resolution"]
+                self.a.salvesta_faili()
                 vana_ekraan = self.ekraan.ekraan
                 vana_gui = self.gui.manager
                 self.ekraan.ekraan = pygame.display.set_mode((sündmus.w, sündmus.h), pygame.RESIZABLE)
 
-                self.gui.manager = pygame_gui.UIManager((sündmus.w, sündmus.h))
+                self.gui.manager = pygame_gui.UIManager((sündmus.w, sündmus.h), 'ksk/andmed/themes/theme.json')
                 self.gui.kinematics_window = GUIEkraan(self.gui.manager)
                 self.ekraan.ekraan.blit(vana_ekraan, (0,0))
                 self.ekraan.värskenda_resolution()
@@ -70,7 +78,7 @@ class SündmuseJuhataja:
                     objekt.alguspunkti_seadja((sündmus.w, sündmus.h-sündmus.h/andmed["gui_pikkus"]))
             
             # Jälgib mis juhtus, kui nupp on vajutatud
-            if sündmus.type == pygame_gui.UI_BUTTON_PRESSED:
+            if button_pressed:
                 
                 # Puhasta ekraan nupp
                 if sündmus.ui_element == self.gui.kinematics_window.puhasta:
@@ -111,7 +119,19 @@ class SündmuseJuhataja:
                             self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(value))
                         except:
                             pass
+                        
+                        
+                # Kustutab kõike järjendist
+                if sündmus.ui_element == self.gui.kinematics_window.kustuta_kõike:
+                    for asi in self.gui.kinematics_window.objekti_menüü.options_list:
+                        if asi == ('', ''):
+                            continue
+                        self.gui.kinematics_window.objekti_menüü.remove_options([asi])
+                    andmed["session_objects"] = {'': ''}
+                    andmed["cur_object"] = ''
+                    self.gui.kinematics_window.objekti_menüü.selected_option = ('', '')
                     
+            
 
     def create_object(self) -> object:
         """
