@@ -36,7 +36,7 @@ class GUIEkraan(UIWindow):
         # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA -------------------- #  
 
         self.margin_vertical = self.rect.height/100
-        self.margin_horizontal = self.rect.width/100
+        self.margin_horizontal = self.rect.width/150
 
         measurements = {"veerg_1": self.margin_horizontal*1, "rida_1": self.margin_vertical*1, "veerg_2": self.margin_horizontal*16, "rida_2": self.margin_vertical*16, "veerg_3": self.margin_horizontal*31, "rida_3": self.margin_vertical*31, "veerg_4": self.margin_horizontal*46, "rida_4": self.margin_vertical*46, "veerg_5": self.margin_horizontal*61, "rida_5": self.margin_vertical*61, "veerg_6": self.margin_horizontal*76, "rida_6": self.margin_vertical*76, "veerg_7": self.margin_horizontal*91, "rida_7": self.margin_vertical*91, "veerg_8": self.margin_horizontal*106, "rida_8": self.margin_vertical*106}
 
@@ -143,8 +143,11 @@ class GUIEkraan(UIWindow):
         lisa_järjendist_width = 50+self.margin_horizontal*6.5
         self.lisa_järjendist = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_4"]), (lisa_järjendist_width, 25)), "Lisa järjendist", self.ui_manager,container=self)
 
+        lisa_kõike_width = 50+self.margin_horizontal*6.5
+        self.lisa_kõike = UIButton(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (lisa_kõike_width, 25)), "Lisa Kõike Järjendist", self.ui_manager,container=self)
 
-        self.aeg = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (gravitatsioon_width, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
+
+        self.aeg = UILabel(pygame.Rect((measurements["veerg_6"], measurements["rida_4"]), (gravitatsioon_width, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
 
         # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA LÕPP -------------------- #  
 

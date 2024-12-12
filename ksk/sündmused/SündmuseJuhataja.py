@@ -104,6 +104,14 @@ class SündmuseJuhataja:
                     except:
                         pass
                     
+                # Lisab kõike järjendist
+                if sündmus.ui_element == self.gui.kinematics_window.lisa_kõike:
+                    for key, value in andmed["session_objects"].items():
+                        try:
+                            self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(value))
+                        except:
+                            pass
+                    
 
     def create_object(self) -> object:
         """
