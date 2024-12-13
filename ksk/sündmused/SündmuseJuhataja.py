@@ -4,6 +4,7 @@ import sys
 from gui.Gui import GUIEkraan
 from andmed.Andmed import Andmed
 from mudlid.Sfäär import Sfäär
+from mudlid.SfäärÕhutakistusega import SfäärÕhutakistusega
 from mudlid.Tegeleja import Tegeleja
 from gui.GuiParser import GuiParser
 
@@ -130,7 +131,14 @@ class SündmuseJuhataja:
                     andmed["session_objects"] = {'': ''}
                     andmed["cur_object"] = ''
                     self.gui.kinematics_window.objekti_menüü.selected_option = ('', '')
-                    
+
+                # Vahetab režiimi
+                if sündmus.ui_element == self.gui.kinematics_window.režiim:
+                    andmed["õhutakistusega"] = not andmed["õhutakistusega"]
+                    if andmed["õhutakistusega"]:
+                        self.gui.kinematics_window.režiimi_sild.set_text("Õhutakistusega")
+                    else:
+                        self.gui.kinematics_window.režiimi_sild.set_text("Ilma õhutakistuseta")
             
 
     def create_object(self) -> object:
@@ -146,26 +154,52 @@ class SündmuseJuhataja:
         suurus = self.gui_parser.positiivne_number(self.gui.kinematics_window.suurus.get_text())
         värv = self.gui_parser.värv(self.gui.kinematics_window.värv.get_text())
 
+        üldinfo = [esialgne_kiirus, nurk, gravitatsioon, suurus, värv]
+
+        raskus = self.gui_parser.positiivne_number(self.gui.kinematics_window.raskus.get_text())
+        tõmbetegur = self.gui_parser.positiivne_number(self.gui.kinematics_window.tõmbetegur.get_text())
+        õhu_tihedus = self.gui_parser.positiivne_number(self.gui.kinematics_window.õhu_tihedus.get_text())
+
+        õhuinfo = [raskus, tõmbetegur, õhu_tihedus]
+
         # vaikeväärtus
         if dt == None:
             dt = 0.001
 
-        # viga, kui midagi on null
-        info = [esialgne_kiirus, nurk, gravitatsioon, suurus, värv]
-        for asi in info:
+        # viga, kui midagi on None
+        for asi in üldinfo:
             if asi == None:
                 return None
 
-        # Uue objekti on loonud antud andmetega
-        o = Sfäär(self.ekraan.ekraan,
-                                        esialgne_kiirus,
-                                        nurk, 
-                                        gravitatsioon=gravitatsioon,
-                                        dt=dt,
-                                        suurus=suurus,
-                                        värv=värv)
-        
-        return o
-
+        if not andmed["õhutakistusega"]:
+            # Uue objekti on loonud antud andmetega
+            o = Sfäär(self.ekraan.ekraan,
+                                            esialgne_kiirus,
+                                            nurk, 
+                                            gravitatsioon=gravitatsioon,
+                                            dt=dt,
+                                            suurus=suurus,
+                                            värv=värv)
+            
+            return o
+        else:
+            # viga, kui midagi on None
+            for asi in õhuinfo:
+                if asi == None:
+                    return None
+                
+            # Uue objekti on loonud antud andmetega
+            o = SfäärÕhutakistusega(self.ekraan.ekraan,
+                                            esialgne_kiirus,
+                                            nurk, 
+                                            gravitatsioon=gravitatsioon,
+                                            dt=dt,
+                                            suurus=suurus,
+                                            raskus=raskus,
+                                            värv=värv,
+                                            tõmbetegur=tõmbetegur,
+                                            õhu_tihedus=õhu_tihedus)
+            
+            return o
             
 

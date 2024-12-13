@@ -26,6 +26,7 @@ class Andmed:
             self.andmed = json.load(f)
             self.andmed["session_objects"] = {'':''}
             self.andmed["cur_object"] = ""
+            self.andmed["õhutakistusega"] = False
 
         # Kui resolution on liiga suur ekraani jaoks (Andmed.json on laadinud teistest arvutist) siis parandab resolutionit.
         user32 = ctypes.windll.user32
@@ -35,12 +36,13 @@ class Andmed:
             self.andmed["resolution"] = [w-50,h-50] 
 
     def salvesta_faili(self):
-        temp1, temp2 = self.andmed["session_objects"], self.andmed["cur_object"]
+        temp1, temp2, temp3 = self.andmed["session_objects"], self.andmed["cur_object"], self.andmed["õhutakistusega"]
         del self.andmed["session_objects"]
         del self.andmed["cur_object"]
+        del self.andmed["õhutakistusega"]
         with open(self.fn, 'w', encoding="UTF-8") as f:
             json.dump(self.andmed, f, indent=4)
-        self.andmed["session_objects"], self.andmed["cur_object"] = temp1, temp2
+        self.andmed["session_objects"], self.andmed["cur_object"], self.andmed["õhutakistusega"] = temp1, temp2, temp3
         
 
     def __del__(self):

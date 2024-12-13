@@ -3,7 +3,7 @@ from mudlid.KinemaatikaMudel import KinemaatikaMudel
 
 class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
     def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float, 
-                 suurus: float, raskus: float, tõmbetegur: float=0.295, õhu_tihedus: float=1.225) -> None:
+                 suurus: float, raskus: float, tõmbetegur: float, õhu_tihedus: float=1.225) -> None:
         super().__init__(esialgne_kiirus, nurk, gravitatsioon, dt)
         
         # Õhutakistuse paraameterid
@@ -18,12 +18,15 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
         """
         Arvutab õhutakistuse kiirusekomponente.
         """
-        kiirus = math.sqrt(kiirus_x ** 2 + kiirus_y ** 2)
+        try:
+            kiirus = math.sqrt(kiirus_x ** 2 + kiirus_y ** 2)
+        except OverflowError:
+            kiirus = math.sqrt(2**128 + 2**128)
         tõmbejõud = 0.5 * self.õhu_tihedus * self.tõmbetegur * self.ristlõike_pindala * (kiirus ** 2)
 
         # Tõmbekiirendused
-        tõmbe_acc_x = - (tõmbejõud / self.raskus) * (kiirus_x / kiirus)
-        tõmbe_acc_y = - (tõmbejõud / self.raskus) * (kiirus_y / kiirus)
+        tõmbe_acc_x = - (tõmbejõud ) * (kiirus_x / kiirus) / self.raskus
+        tõmbe_acc_y = - self.gravitatsioon - (tõmbejõud) * (kiirus_y / kiirus) / self.raskus
 
         return tõmbe_acc_x, tõmbe_acc_y
 
@@ -45,7 +48,14 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
 
         # Update velocity components
         self.kiirus_x += tõmbe_acc_x * self.dt
-        self.kiirus_y += (-self.gravitatsioon + tõmbe_acc_y) * self.dt
+        self.kiirus_y += tõmbe_acc_y * self.dt
 
-    def __str__(self):
-        return (f"Velocity X: {self.kiirus_x}, Velocity Y: {self.kiirus_y}, "f"Position: ({self.positsioon_x}, {self.positsioon_y})")
+    def __str__(self) -> str:
+        return (f"Esialgne kiirus: {self.esialgne_kiirus:.2f} m/s\n"
+                f"Nurk: {self.nurk:.2f}°\n"
+                f"Gravitatsioon: {self.gravitatsioon:.2f} m/s²\n"
+                f"Ajatükk (dt): {self.dt:.4f} s\n"
+                f"Suurus (raadius): {self.suurus:.3f} m\n"
+                f"Raskus (mass): {self.raskus:.2f} kg\n"
+                f"Tõmbetegur: {self.tõmbetegur:.2f}\n"
+                f"Õhu tihedus: {self.õhu_tihedus:.3f} kg/m³")
