@@ -32,7 +32,7 @@ def create_chart(start, trigger=True):
             line = line
             if "import" in line:
                 for key in search:
-                    if key in line:
+                    if "."+key+" " in line:
                         if cur == key or [cur, key] in used_pairs:
                             break
                         flowchart.edge(cur, key)

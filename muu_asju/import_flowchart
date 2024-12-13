@@ -6,24 +6,36 @@ digraph "Import flowchart" {
 	GuiParser
 	Juhataja
 	KinemaatikaMudel
+	"KinemaatikaMudelÕhutakistusega"
 	Objekt
+	"ObjektÕhutakistusega"
 	Ruut
 	"Sfäär"
+	"SfäärÕhutakistusega"
+	Tegeleja
 	"SündmuseJuhataja"
 	main -> Juhataja
 	Ekraan -> Andmed
+	Ekraan -> Objekt
+	Objekt -> KinemaatikaMudel
 	Gui -> Andmed
 	GuiParser -> Gui
+	Juhataja -> "SündmuseJuhataja"
 	Juhataja -> Ekraan
 	Juhataja -> Gui
-	Juhataja -> "Sfäär"
-	Juhataja -> Ruut
+	Juhataja -> "SfäärÕhutakistusega"
+	Juhataja -> Tegeleja
 	Juhataja -> Andmed
-	"Sfäär" -> Objekt
-	Objekt -> KinemaatikaMudel
-	Ruut -> Objekt
-	"SündmuseJuhataja" -> Ekraan
 	"SündmuseJuhataja" -> Gui
 	"SündmuseJuhataja" -> Andmed
 	"SündmuseJuhataja" -> "Sfäär"
+	"SündmuseJuhataja" -> Tegeleja
+	"SündmuseJuhataja" -> GuiParser
+	"Sfäär" -> Objekt
+	Tegeleja -> "Sfäär"
+	Tegeleja -> Ruut
+	Ruut -> Objekt
+	"SfäärÕhutakistusega" -> "ObjektÕhutakistusega"
+	"ObjektÕhutakistusega" -> "KinemaatikaMudelÕhutakistusega"
+	"KinemaatikaMudelÕhutakistusega" -> KinemaatikaMudel
 }
