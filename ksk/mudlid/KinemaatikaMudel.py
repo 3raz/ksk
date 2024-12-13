@@ -7,6 +7,7 @@ class KinemaatikaMudel:
         self.gravitatsioon = gravitatsioon
         self.dt = dt
 
+        # Esialgne vorm
         self.aeg: float = 0
         self.positsioon_x: float = 0
         self.positsioon_y: float = 0

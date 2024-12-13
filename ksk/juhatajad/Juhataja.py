@@ -2,8 +2,7 @@ import pygame
 from sündmused.SündmuseJuhataja import SündmuseJuhataja
 from ekraan.Ekraan import Ekraan
 from gui.Gui import GUI
-from mudlid.Sfäär import Sfäär
-from mudlid.Ruut import Ruut
+from mudlid.SfäärÕhutakistusega import SfäärÕhutakistusega
 from mudlid.Tegeleja import Tegeleja
 from andmed.Andmed import Andmed
 
@@ -33,8 +32,21 @@ class Juhataja:
         """
         if andmed["objektid"] != []:
             for o in andmed["objektid"]:
+                continue
                 self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(o))
 
+        o = SfäärÕhutakistusega(self.ekraan.ekraan, 200, 45, suurus=0.1, värv=(255,0,0))
+        p = SfäärÕhutakistusega(self.ekraan.ekraan, 200, 45, suurus=0.2, värv=(255,0,255))
+        q = SfäärÕhutakistusega(self.ekraan.ekraan, 200, 45, suurus=0.3,värv=(255,255,0))
+        r = SfäärÕhutakistusega(self.ekraan.ekraan, 200, 45, suurus=0.4,värv=(0,0,255))
+        o.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
+        p.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
+        q.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
+        r.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
+        self.ekraan.lisa_objekti(o)
+        self.ekraan.lisa_objekti(p)
+        self.ekraan.lisa_objekti(q)
+        self.ekraan.lisa_objekti(r)
         while self.jooksmas:
             self.sündmuseJuhataja.töötle_sündmustega()
             

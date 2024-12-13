@@ -2,7 +2,7 @@ from mudlid.Objekt import Objekt
 import pygame
 
 class Sfäär(Objekt):
-    def __init__(self, ekraan, esialgne_kiirus, nurk, gravitatsioon=9.8, dt=0.001, suurus=10, värv=(255,0,0)) -> None:
+    def __init__(self, ekraan, esialgne_kiirus, nurk, gravitatsioon=9.81, dt=0.000334, suurus=10, värv=(255,0,0)) -> None:
         super().__init__(ekraan, esialgne_kiirus, nurk, gravitatsioon, dt, suurus, värv)
         self.tüüp = "Sfäär"
 
