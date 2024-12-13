@@ -30,25 +30,35 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
 
         return tõmbe_acc_x, tõmbe_acc_y
 
-    def __arvuta_positsiooni__(self) -> None:
+    def uuenda(self, inc=100) -> None:
+        """
+        Uuenda objekti kõiki aspekte
+        """
+        for _ in range(0, inc):
+            self.__arvuta_positsiooni__(inc=inc)
+            self.__arvuta_kiiruse__(inc=inc)
+            if not self.maal:
+                self.aeg += self.dt/inc
+
+    def __arvuta_positsiooni__(self, inc=1) -> None:
         """
         Uuenda objekti asukohta kiiruse ja aja järgi.
         """
         if self.algus_y - self.positsioon_y > self.algus_y:
             self.maal = True
             return
-        self.positsioon_x += self.kiirus_x * self.dt
-        self.positsioon_y += self.kiirus_y * self.dt
+        self.positsioon_x += self.kiirus_x * (self.dt / inc)
+        self.positsioon_y += self.kiirus_y * (self.dt / inc)
 
-    def __arvuta_kiiruse__(self) -> None:
+    def __arvuta_kiiruse__(self, inc=1) -> None:
         """
         Uuenda objekti kiirust gravitatsiooni ja õhutakistuse alusel.
         """
         tõmbe_acc_x, tõmbe_acc_y = self.__arvuta_tõmbemist__(self.kiirus_x, self.kiirus_y)
 
         # Update velocity components
-        self.kiirus_x += tõmbe_acc_x * self.dt
-        self.kiirus_y += tõmbe_acc_y * self.dt
+        self.kiirus_x += tõmbe_acc_x * (self.dt / inc)
+        self.kiirus_y += tõmbe_acc_y * (self.dt / inc)
 
     def __str__(self) -> str:
         return (f"Esialgne kiirus: {self.esialgne_kiirus:.2f} m/s\n"

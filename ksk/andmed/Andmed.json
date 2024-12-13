@@ -9,7 +9,7 @@
         "esialgne_kiirus": 45.0,
         "nurk": "45",
         "gravitatsioon": 9.81,
-        "suurus": 0.01,
+        "suurus": 4.5,
         "v\u00e4rv": [
             50,
             255,
@@ -17,8 +17,8 @@
         ],
         "dt": 0.003,
         "raskus": 1,
-        "tõmbetegur": 0.47,
-        "õhu_tihedus": 1.225
+        "t\u00f5mbetegur": 0.47,
+        "\u00f5hu_tihedus": 1.225
     },
     "objektid": [
         {
