@@ -46,5 +46,8 @@ class ObjektÕhutakistusega(KinemaatikaMudelÕhutakistusega):
             "esialgne_kiirus": self.esialgne_kiirus,
             "nurk": self.nurk,
             "aeg": self.aeg,
+            "raskus": self.raskus,
+            "tõmbetegur": self.tõmbetegur,
+            "õhu_tihedus": self.õhu_tihedus,
             "dt": self.dt
         }

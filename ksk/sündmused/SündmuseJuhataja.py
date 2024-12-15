@@ -95,30 +95,9 @@ class SündmuseJuhataja:
                     if o == None:
                         print("Bad info")
 
-                    h2 = o.__dict__.copy() 
-                    print(h2)
-
-                    del h2["dt"]
-                    del h2["aeg"]
-                    del h2["positsioon_x"]
-                    del h2["positsioon_y"]
-                    del h2["algus_x"]
-                    del h2["algus_y"]
-                    del h2["kiirus_x"]
-                    del h2["kiirus_y"]
-
                     trigger = False    
-                    for h1 in self.ekraan.objektid:
-                        h1 = h1.__dict__.copy()
-                        del h1["dt"]
-                        del h1["aeg"]
-                        del h1["positsioon_x"]
-                        del h1["positsioon_y"]
-                        del h1["algus_x"]
-                        del h1["algus_y"]
-                        del h1["kiirus_x"]
-                        del h1["kiirus_y"]
-                        if h1 == h2:
+                    for _, h1 in andmed["session_objects"].items():
+                        if h1 == o.objekti_andmed_võtja:
                             trigger = True
 
                     if trigger:
@@ -208,12 +187,12 @@ class SündmuseJuhataja:
         if not andmed["õhutakistusega"]:
             # Uue objekti on loonud antud andmetega
             o = Sfäär(self.ekraan.ekraan,
-                                            esialgne_kiirus,
-                                            nurk, 
-                                            gravitatsioon=gravitatsioon,
-                                            dt=dt,
-                                            suurus=suurus,
-                                            värv=värv)
+                                esialgne_kiirus,
+                                nurk, 
+                                gravitatsioon=gravitatsioon,
+                                dt=dt,
+                                suurus=suurus,
+                                värv=värv)
             
             return o
         else:

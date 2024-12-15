@@ -1,2 +1,0 @@
-{'esialgne_kiirus': 300.0, 'nurk': 45.0, 'gravitatsioon': 9.81, 'kiirus_x': 212.13203435596427, 'kiirus_y': 210.6507243559642, 'maal': False, 'suurus': 10.0, 'ekraan': <Surface(1920x1000x32)>, 'värv': (50, 255, 255), 'tüüp': 'Sfäär'}
-{'esialgne_kiirus': 300.0, 'nurk': 45.0, 'gravitatsioon': 9.81, 'kiirus_x': 212.13203435596427, 'kiirus_y': 212.13203435596427, 'maal': False, 'suurus': 10.0, 'ekraan': <Surface(1920x1000x32)>, 'värv': (50, 255, 255), 'tüüp': 'Sfäär'}
