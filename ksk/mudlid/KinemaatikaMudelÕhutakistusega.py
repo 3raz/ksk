@@ -1,5 +1,8 @@
 import math
 from mudlid.KinemaatikaMudel import KinemaatikaMudel
+from andmed.Andmed import Andmed
+
+andmed = Andmed().andmed
 
 class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
     def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float, 
@@ -25,8 +28,12 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
         tõmbejõud = 0.5 * self.õhu_tihedus * self.tõmbetegur * self.ristlõike_pindala * (kiirus ** 2)
 
         # Tõmbekiirendused
-        tõmbe_acc_x = - (tõmbejõud ) * (kiirus_x / kiirus) / self.raskus
-        tõmbe_acc_y = - self.gravitatsioon - (tõmbejõud) * (kiirus_y / kiirus) / self.raskus
+        try:
+            tõmbe_acc_x = - ( (tõmbejõud ) * (kiirus_x / kiirus) ) / self.raskus
+            tõmbe_acc_y = - self.gravitatsioon - ( (tõmbejõud) * (kiirus_y / kiirus) ) / self.raskus
+        except ZeroDivisionError:
+            self.maal = True
+            return -1e100, -1e100
 
         return tõmbe_acc_x, tõmbe_acc_y
 
@@ -47,8 +54,8 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
         if self.algus_y - self.positsioon_y > self.algus_y:
             self.maal = True
             return
-        self.positsioon_x += self.kiirus_x * (self.dt / inc)
-        self.positsioon_y += self.kiirus_y * (self.dt / inc)
+        self.positsioon_x += self.kiirus_x * (self.dt / inc) / andmed["scale"]
+        self.positsioon_y += self.kiirus_y * (self.dt / inc) / andmed["scale"]
 
     def __arvuta_kiiruse__(self, inc=1) -> None:
         """

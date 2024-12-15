@@ -42,7 +42,7 @@ class Ekraan:
         for o in self.objektid:
             o.protsess()
         pygame.display.update()
-    
+        
     def puhasta(self) -> None:
         """
         Täitab tapeedi värviga.

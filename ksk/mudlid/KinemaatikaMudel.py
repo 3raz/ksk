@@ -1,4 +1,7 @@
 import math
+from andmed.Andmed import Andmed
+
+andmed = Andmed().andmed
 
 class KinemaatikaMudel:
     def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float) -> None:
@@ -26,8 +29,8 @@ class KinemaatikaMudel:
         if self.algus_y - self.positsioon_y > self.algus_y:
             self.maal = True
             return
-        self.positsioon_x = self.kiirus_x * self.aeg
-        self.positsioon_y = (self.kiirus_y * self.aeg) - (0.5 * self.gravitatsioon * self.aeg ** 2)
+        self.positsioon_x += self.kiirus_x * self.dt / andmed["scale"]
+        self.positsioon_y += self.kiirus_y * self.dt / andmed["scale"]
 
     def __arvuta_kiiruse__(self) -> None:
         """

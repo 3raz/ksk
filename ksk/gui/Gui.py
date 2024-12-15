@@ -182,9 +182,9 @@ class GUIEkraan(UIWindow):
         """
         super().update(time_delta)
         if self.o != None:
-            self.aeg.set_text("Reaalaeg: " + str(round(self.o.aeg*3, 2)))
-            self.kaugus.set_text("X-positsioon: " + str(round(self.o.positsioon_x*3, 2)))
-            self.kõrgus.set_text("Y-positsioon: " + str(round(self.o.positsioon_y*3, 2)))
+            self.aeg.set_text("Reaalaeg: " + str(round(self.o.aeg, 2)))
+            self.kaugus.set_text("X-positsioon: " + str(round(self.o.positsioon_x*andmed["scale"], 2)))
+            self.kõrgus.set_text("Y-positsioon: " + str(round(self.o.positsioon_y*andmed["scale"], 2)))
 
     @staticmethod
     def approximate_color(rgb):

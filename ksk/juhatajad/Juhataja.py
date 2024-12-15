@@ -35,18 +35,7 @@ class Juhataja:
                 continue
                 self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(o))
 
-        o = SfäärÕhutakistusega(self.ekraan.ekraan, 300, 45, suurus=7.62e-3, raskus=8.4e-3, värv=(255,0,0), tõmbetegur=0.295, suurus_kordja=1000)
-        p = SfäärÕhutakistusega(self.ekraan.ekraan, 441, 45, suurus=4.57e-3/2, raskus=5.7e-4, värv=(255,0,255), suurus_kordja=1000)
-        q = SfäärÕhutakistusega(self.ekraan.ekraan, 1555, 45, suurus=0.06, raskus=23, värv=(255,255,0), tõmbetegur=0.295, suurus_kordja=100)
-        # r = SfäärÕhutakistusega(self.ekraan.ekraan, 200, 45, suurus=0.4,värv=(0,0,255))
-        o.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
-        p.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
-        q.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
-        # r.alguspunkti_seadja((self.ekraan.suurus_x, self.ekraan.suurus_y-self.ekraan.suurus_y/andmed["gui_pikkus"]))
-        self.ekraan.lisa_objekti(o)
-        self.ekraan.lisa_objekti(p)
-        self.ekraan.lisa_objekti(q)
-        # self.ekraan.lisa_objekti(r)
+
         while self.jooksmas:
             self.sündmuseJuhataja.töötle_sündmustega()
             

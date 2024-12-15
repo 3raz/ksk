@@ -41,12 +41,15 @@ class SündmuseJuhataja:
 
                 # Jälgib, et objekt on korralikult loonud.
                 if o != None:
-                    andmed["gui_andmed"]["esialgne_kiirus"] = float(self.gui.kinematics_window.nurk.get_text())
-                    andmed["gui_andmed"]["nurk"] = self.gui.kinematics_window.nurk.get_text()
+                    andmed["gui_andmed"]["esialgne_kiirus"] = float(self.gui.kinematics_window.esialgne_kiirus.get_text())
+                    andmed["gui_andmed"]["nurk"] = float(self.gui.kinematics_window.nurk.get_text())
                     andmed["gui_andmed"]["gravitatsioon"] = float(self.gui.kinematics_window.gravitatsioon.get_text())
                     andmed["gui_andmed"]["dt"] = float(self.gui.kinematics_window.dt.get_text())
-                    andmed["gui_andmed"]["suurus"] =float(self.gui.kinematics_window.suurus.get_text())
+                    andmed["gui_andmed"]["suurus"] = float(self.gui.kinematics_window.suurus.get_text())
                     andmed["gui_andmed"]["värv"] = [int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')]
+                    andmed["gui_andmed"]["raskus"] = float(self.gui.kinematics_window.raskus.get_text())
+                    andmed["gui_andmed"]["tõmbetegur"] = float(self.gui.kinematics_window.tõmbetegur.get_text())
+                    andmed["gui_andmed"]["õhu_tihedus"] = float(self.gui.kinematics_window.õhu_tihedus.get_text())
 
             # Määrab muutujat rippmenüü praeguse tekstiga, kui rippmenüü praeguse tekst on muutnud. 
             if sündmus.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
@@ -88,12 +91,43 @@ class SündmuseJuhataja:
                 # Objekti lisamise nupp
                 if sündmus.ui_element == self.gui.kinematics_window.lisa:
                     o = self.create_object()
+                    
                     if o == None:
                         print("Bad info")
+
+                    h2 = o.__dict__.copy() 
+                    print(h2)
+
+                    del h2["dt"]
+                    del h2["aeg"]
+                    del h2["positsioon_x"]
+                    del h2["positsioon_y"]
+                    del h2["algus_x"]
+                    del h2["algus_y"]
+                    del h2["kiirus_x"]
+                    del h2["kiirus_y"]
+
+                    trigger = False    
+                    for h1 in self.ekraan.objektid:
+                        h1 = h1.__dict__.copy()
+                        del h1["dt"]
+                        del h1["aeg"]
+                        del h1["positsioon_x"]
+                        del h1["positsioon_y"]
+                        del h1["algus_x"]
+                        del h1["algus_y"]
+                        del h1["kiirus_x"]
+                        del h1["kiirus_y"]
+                        print(h1, "|||||||", h2)
+                        if h1 == h2:
+                            trigger = True
+                            print("here"*100)
+
+                    if trigger:
+                        pass
                     else:
                         self.gui.kinematics_window.set_most_recent_object(o)
                         uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + " sfäär"
-                        self.ekraan.lisa_objekti(o)
                         while True:
                             for key, _ in andmed["session_objects"].items():
                                 if key == uue_objekti_nimi:
@@ -105,6 +139,7 @@ class SündmuseJuhataja:
                             break
                         andmed["session_objects"][uue_objekti_nimi] = o.objekti_andmed_võtja
                         self.gui.kinematics_window.objekti_menüü.add_options([uue_objekti_nimi])
+                    self.ekraan.lisa_objekti(o)
 
                 # Objekti lisamise nupp rippumenüüst
                 if sündmus.ui_element == self.gui.kinematics_window.lisa_järjendist:
