@@ -32,7 +32,6 @@ class Juhataja:
         """
         if andmed["objektid"] != []:
             for o in andmed["objektid"]:
-                continue
                 self.ekraan.lisa_objekti(self.tegeleja.serialiseerija(o))
 
 

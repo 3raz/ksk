@@ -118,14 +118,13 @@ class SündmuseJuhataja:
                         del h1["algus_y"]
                         del h1["kiirus_x"]
                         del h1["kiirus_y"]
-                        print(h1, "|||||||", h2)
                         if h1 == h2:
                             trigger = True
-                            print("here"*100)
 
                     if trigger:
                         pass
                     else:
+                        pass
                         self.gui.kinematics_window.set_most_recent_object(o)
                         uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + " sfäär"
                         while True:
