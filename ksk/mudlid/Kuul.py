@@ -1,5 +1,8 @@
 from mudlid.ObjektKuul import ObjektKuul
 import pygame
+from andmed.Andmed import Andmed
+
+andmed = Andmed().andmed
 
 class Kuul(ObjektKuul):
     def __init__(self, ekraan, esialgne_kiirus: float, nurk: float, gravitatsioon: float=9.81, 
@@ -9,7 +12,7 @@ class Kuul(ObjektKuul):
         Suurus on tegelikult raadius
         """
         super().__init__(ekraan, esialgne_kiirus, nurk, gravitatsioon, dt, suurus, raskus, värv=värv, 
-                         tõmbekoefitsient=tõmbekoefitsient, õhu_tihedus=õhu_tihedus, ballistilinekoefitsient=ballistilinekoefitsient)
+                         tõmbekoefitsient=tõmbekoefitsient, õhu_tihedus=õhu_tihedus, ballistilinekoefitsient=andmed["ballistilinekoefitsient"])
         self.tüüp = "Kuul"
         self.suurus_kordja = suurus_kordja
 
