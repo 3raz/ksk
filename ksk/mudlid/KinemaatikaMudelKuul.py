@@ -6,22 +6,22 @@ andmed = Andmed().andmed
 
 class KinemaatikaMudelKuul(KinemaatikaMudel):
     G1_DRAG_TABLE  = [
-    (0.0, 1.0),     # Subsonic
-    (0.2, 0.85),    # Subsonic
-    (0.4, 0.75),    # Subsonic
-    (0.6, 0.65),    # Subsonic
-    (0.8, 0.55),    # Transonic
-    (1.0, 0.50),    # Transonic (Mach 1)
-    (1.2, 0.45),    # Supersonic
-    (1.4, 0.42),    # Supersonic
-    (1.6, 0.40),    # Supersonic
-    (1.8, 0.38),    # Supersonic
-    (2.0, 0.35),    # Supersonic
-    (2.5, 0.32),    # Supersonic
-    (3.0, 0.30),    # Hypersonic
-    (4.0, 0.28),    # Hypersonic
-    (5.0, 0.27),    # Hypersonic
-]
+        (0.0, 1.0),
+        (0.2, 0.85),
+        (0.4, 0.75),
+        (0.6, 0.65),
+        (0.8, 0.55),
+        (1.0, 0.50),
+        (1.2, 0.45),
+        (1.4, 0.42),
+        (1.6, 0.40),
+        (1.8, 0.38),
+        (2.0, 0.35),
+        (2.5, 0.32),
+        (3.0, 0.30),
+        (4.0, 0.28),
+        (5.0, 0.27),
+    ]
 
     def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float, 
                  suurus: float, raskus: float, tõmbekoefitsient: float, ballistilinekoefitsient: float, 

@@ -6,8 +6,11 @@ digraph "Inheritance flowchart" {
 	GuiParser
 	Juhataja
 	KinemaatikaMudel
+	KinemaatikaMudelKuul
 	"KinemaatikaMudelÕhutakistusega"
+	Kuul
 	Objekt
+	ObjektKuul
 	"ObjektÕhutakistusega"
 	Ruut
 	"Sfäär"
@@ -15,8 +18,11 @@ digraph "Inheritance flowchart" {
 	Tegeleja
 	"SündmuseJuhataja"
 	Gui -> UIWindow
+	KinemaatikaMudelKuul -> KinemaatikaMudel
 	"KinemaatikaMudelÕhutakistusega" -> KinemaatikaMudel
+	Kuul -> ObjektKuul
 	Objekt -> KinemaatikaMudel
+	ObjektKuul -> KinemaatikaMudelKuul
 	"ObjektÕhutakistusega" -> "KinemaatikaMudelÕhutakistusega"
 	Ruut -> Objekt
 	"Sfäär" -> Objekt
