@@ -87,6 +87,7 @@ class SündmuseJuhataja:
                 # Puhasta ekraan nupp
                 if sündmus.ui_element == self.gui.kinematics_window.puhasta:
                     self.ekraan.kustuta_objekte()
+                    andmed["riivsai"] = []
 
                 # Objekti lisamise nupp
                 if sündmus.ui_element == self.gui.kinematics_window.lisa:
@@ -147,11 +148,19 @@ class SündmuseJuhataja:
 
                 # Vahetab režiimi
                 if sündmus.ui_element == self.gui.kinematics_window.režiim:
-                    andmed["õhutakistusega"] = not andmed["õhutakistusega"]
-                    if andmed["õhutakistusega"]:
+                    andmed["gui_andmed"]["õhutakistusega"] = not andmed["gui_andmed"]["õhutakistusega"]
+                    if andmed["gui_andmed"]["õhutakistusega"]:
                         self.gui.kinematics_window.režiimi_sild.set_text("Õhutakistusega")
                     else:
                         self.gui.kinematics_window.režiimi_sild.set_text("Ilma õhutakistuseta")
+
+                # Vahetab saia
+                if sündmus.ui_element == self.gui.kinematics_window.riivsai:
+                    andmed["gui_andmed"]["riivsaiaga"] = not andmed["gui_andmed"]["riivsaiaga"]
+                    if andmed["gui_andmed"]["riivsaiaga"]:
+                        self.gui.kinematics_window.riivsaia_sild.set_text("Riivsaiaga")
+                    else:
+                        self.gui.kinematics_window.riivsaia_sild.set_text("Ilma riivsaiata")
             
 
     def create_object(self) -> object:
@@ -184,7 +193,7 @@ class SündmuseJuhataja:
             if asi == None:
                 return None
 
-        if not andmed["õhutakistusega"]:
+        if not andmed["gui_andmed"]["õhutakistusega"]:
             # Uue objekti on loonud antud andmetega
             o = Sfäär(self.ekraan.ekraan,
                                 esialgne_kiirus,

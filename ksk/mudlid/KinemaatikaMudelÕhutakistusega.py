@@ -46,6 +46,7 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
             self.__arvuta_kiiruse__(inc=inc)
             if not self.maal:
                 self.aeg += self.dt/inc
+        self.joonista_riivsai()
 
     def __arvuta_positsiooni__(self, inc=1) -> None:
         """

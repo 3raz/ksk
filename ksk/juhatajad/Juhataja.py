@@ -50,7 +50,11 @@ class Juhataja:
             self.ekraan.puhasta()
             
             self.gui.manager.draw_ui(self.ekraan.ekraan)
+            if andmed["gui_andmed"]["riivsaiaga"]:
+                for puru in andmed["riivsai"]:
+                    pygame.draw.rect(self.ekraan.ekraan, (255,255,255), pygame.Rect(puru[0], puru[2]-puru[1], 5, 5))
             self.ekraan.joonista_objekte()
+
 
         pygame.quit()
 

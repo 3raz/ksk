@@ -1,4 +1,5 @@
 import math
+import pygame
 from andmed.Andmed import Andmed
 
 andmed = Andmed().andmed
@@ -44,6 +45,7 @@ class KinemaatikaMudel:
         """
         self.__arvuta_positsiooni__()
         self.__arvuta_kiiruse__()
+        self.joonista_riivsai()
         if not self.maal:
             self.aeg += self.dt
 
@@ -65,3 +67,7 @@ class KinemaatikaMudel:
         """
         self.algus_x = punkt[0]
         self.algus_y = punkt[1]
+
+    def joonista_riivsai(self, värv=(255,255,255)):
+        if andmed["gui_andmed"]["riivsaiaga"]:
+            andmed["riivsai"].append((self.positsioon_x, self.positsioon_y, self.algus_y))

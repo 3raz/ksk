@@ -165,8 +165,14 @@ class GUIEkraan(UIWindow):
 
         self.kõrgus = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_2"]), (nupp_laius, 25)), "Y-positsioon: Määratlemata", self.ui_manager, container=self)
 
-        self.režiimi_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_3"]), (nupp_laius, 25)), "Ilma õhutakistuseta", self.ui_manager, container=self)
+        tekst = "Õhutaksitusega"*andmed["gui_andmed"]["õhutakistusega"] + "Ilma õhutakistuseta"*(not andmed["gui_andmed"]["õhutakistusega"])
+        self.režiimi_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_3"]), (nupp_laius, 25)), tekst, self.ui_manager, container=self)
         self.režiim = UIButton(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (nupp_laius, 25)), "Vaheta režiimi", self.ui_manager,container=self)
+
+        tekst = "Riivsaiaga"*andmed["gui_andmed"]["riivsaiaga"] + "Ilma riivsaiata"*(not andmed["gui_andmed"]["riivsaiaga"])
+        self.riivsaia_sild = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_3"]), (nupp_laius, 25)), tekst, self.ui_manager, container=self)
+        self.riivsai = UIButton(pygame.Rect((measurements["veerg_9"], measurements["rida_4"]), (nupp_laius, 25)), "Riivsai", self.ui_manager,container=self)
+
 
         # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA LÕPP -------------------- #  
 
