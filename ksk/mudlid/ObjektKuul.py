@@ -1,12 +1,12 @@
-from mudlid.KinemaatikaMudelÕhutakistusega import KinemaatikaMudelÕhutakistusega
+from mudlid.KinemaatikaMudelKuul import KinemaatikaMudelKuul
 
 from abc import abstractmethod
 
-class ObjektÕhutakistusega(KinemaatikaMudelÕhutakistusega):
+class ObjektKuul(KinemaatikaMudelKuul):
     def __init__(self, ekraan, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float, 
-                 suurus: float, raskus: float, värv: tuple, tõmbekoefitsient: float=0.295, õhu_tihedus: float=1.225):
+                 suurus: float, raskus: float, värv: tuple, tõmbekoefitsient: float=0.295, õhu_tihedus: float=1.225, ballistilinekoefitsient: float=None):
         super().__init__(esialgne_kiirus, nurk, gravitatsioon, dt, 
-                 suurus, raskus, tõmbekoefitsient=tõmbekoefitsient, õhu_tihedus=õhu_tihedus)
+                 suurus, raskus, tõmbekoefitsient=tõmbekoefitsient, õhu_tihedus=õhu_tihedus, ballistilinekoefitsient=ballistilinekoefitsient)
         self.nurk = nurk
         self.suurus = suurus
         self.ekraan = ekraan
@@ -48,5 +48,6 @@ class ObjektÕhutakistusega(KinemaatikaMudelÕhutakistusega):
             "raskus": self.raskus,
             "tõmbekoefitsient": self.tõmbekoefitsient,
             "õhu_tihedus": self.õhu_tihedus,
+            "ballistilinekoefitsient": self.ballistilinekoefitsient,
             "dt": self.dt
         }

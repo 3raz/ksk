@@ -11,6 +11,7 @@ from pygame_gui.elements import UILabel
 from pygame_gui.elements import UIButton
 
 import pygame
+import warnings
 
 andmed = Andmed().andmed
 
@@ -42,136 +43,139 @@ class GUIEkraan(UIWindow):
 
         nupp_laius = 50+self.margin_horizontal*6.5
 
-        self.esialgne_kiirus = UITextEntryLine(pygame.Rect((measurements["veerg_1"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.esialgne_kiirus.set_text(str(andmed["gui_andmed"]["esialgne_kiirus"]))
-        if self.esialgne_kiirus.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.esialgne_kiirus.set_text("0")
-        else:
-            sõne = self.esialgne_kiirus.get_text()
-        self.esialgne_kiirus_sild = UILabel(pygame.Rect((measurements["veerg_1"], measurements["rida_1"]), (nupp_laius, 25)), "Esialgne kiirus: "+sõne, self.ui_manager, container=self)
+        # Ei pane tähele nendele hoiatustele, mis tekkib kui GUI on pisut liiga väike.
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", UserWarning)
+
+            self.esialgne_kiirus = UITextEntryLine(pygame.Rect((measurements["veerg_1"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.esialgne_kiirus.set_text(str(andmed["gui_andmed"]["esialgne_kiirus"]))
+            if self.esialgne_kiirus.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.esialgne_kiirus.set_text("0")
+            else:
+                sõne = self.esialgne_kiirus.get_text()
+            self.esialgne_kiirus_sild = UILabel(pygame.Rect((measurements["veerg_1"], measurements["rida_1"]), (nupp_laius, 25)), "Esialgne kiirus: "+sõne, self.ui_manager, container=self)
+                
+
+            self.nurk = UITextEntryLine(pygame.Rect((measurements["veerg_2"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.nurk.set_text(str(andmed["gui_andmed"]["nurk"]))
+            if self.nurk.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.nurk.set_text("0")
+            else:
+                sõne = self.nurk.get_text()
+            self.nurk_sild = UILabel(pygame.Rect((measurements["veerg_2"], measurements["rida_1"]), (nupp_laius, 25)), "Nurk: "+sõne, self.ui_manager, container=self)
+                
+
+
+            self.gravitatsioon = UITextEntryLine(pygame.Rect((measurements["veerg_3"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.gravitatsioon.set_text(str(andmed["gui_andmed"]["gravitatsioon"]))
+            if self.gravitatsioon.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.gravitatsioon.set_text("0")
+            else:
+                sõne = self.gravitatsioon.get_text()
+            self.gravitatsioon_sild = UILabel(pygame.Rect((measurements["veerg_3"], measurements["rida_1"]), (nupp_laius, 25)), "Gravitatsioon: "+sõne, self.ui_manager, container=self)
+                
+
+
+            self.suurus = UITextEntryLine(pygame.Rect((measurements["veerg_4"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.suurus.set_text(str(andmed["gui_andmed"]["suurus"]))
+            if self.suurus.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.suurus.set_text("0")
+            else:
+                sõne = self.suurus.get_text()
+            self.suurus_sild = UILabel(pygame.Rect((measurements["veerg_4"], measurements["rida_1"]), (nupp_laius, 25)), "Suurus: "+sõne, self.ui_manager, container=self)
+                
+
+
+            self.värv = UITextEntryLine(pygame.Rect((measurements["veerg_5"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            _ = andmed["gui_andmed"]["värv"]
+            self.värv.set_text(str(f"{_[0]},{_[1]},{_[2]}"))
+            if self.värv.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.värv.set_text("0,0,0")
+            else:
+                sõne = self.värv.get_text()
+            self.värv_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_1"]), (nupp_laius, 25)), "Värv: "+sõne, self.ui_manager, container=self)
+                
+
+
+            self.dt = UITextEntryLine(pygame.Rect((measurements["veerg_6"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.dt.set_text(str(andmed["gui_andmed"]["dt"]))
+            if self.dt.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.dt.set_text("0")
+            else:
+                sõne = self.dt.get_text()
+            self.dt_sild = UILabel(pygame.Rect((measurements["veerg_6"], measurements["rida_1"]), (nupp_laius, 25)), "dt: "+sõne, self.ui_manager, container=self)
+
+
+            self.raskus = UITextEntryLine(pygame.Rect((measurements["veerg_6"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.raskus.set_text(str(andmed["gui_andmed"]["raskus"]))
+            if self.raskus.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.raskus.set_text("1")
+            else:
+                sõne = self.raskus.get_text()
+            self.raskus_sild = UILabel(pygame.Rect((measurements["veerg_6"], measurements["rida_3"]), (nupp_laius, 25)), "Raskus (kg): "+sõne, self.ui_manager, container=self)
             
 
-        self.nurk = UITextEntryLine(pygame.Rect((measurements["veerg_2"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.nurk.set_text(str(andmed["gui_andmed"]["nurk"]))
-        if self.nurk.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.nurk.set_text("0")
-        else:
-            sõne = self.nurk.get_text()
-        self.nurk_sild = UILabel(pygame.Rect((measurements["veerg_2"], measurements["rida_1"]), (nupp_laius, 25)), "Nurk: "+sõne, self.ui_manager, container=self)
+            self.tõmbekoefitsient = UITextEntryLine(pygame.Rect((measurements["veerg_7"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.tõmbekoefitsient.set_text(str(andmed["gui_andmed"]["tõmbekoefitsient"]))
+            if self.tõmbekoefitsient.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.tõmbekoefitsient.set_text("0.47")
+            else:
+                sõne = self.tõmbekoefitsient.get_text()
+            self.tõmbekoefitsient_sild = UILabel(pygame.Rect((measurements["veerg_7"], measurements["rida_3"]), (nupp_laius, 25)), "Tõmbekoefitsient: "+sõne, self.ui_manager, container=self)
+                
+
+            self.õhu_tihedus = UITextEntryLine(pygame.Rect((measurements["veerg_8"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
+            self.õhu_tihedus.set_text(str(andmed["gui_andmed"]["õhu_tihedus"]))
+            if self.õhu_tihedus.get_text().strip() == '':
+                sõne = "Määratlemata"
+                self.õhu_tihedus.set_text("1.225")
+            else:
+                sõne = self.õhu_tihedus.get_text()
+            self.õhu_tihedus_sild = UILabel(pygame.Rect((measurements["veerg_8"], measurements["rida_3"]), (nupp_laius, 25)), "Õhu tihedus: "+sõne, self.ui_manager, container=self)
+                
+
+            järjend = [key for key, _ in andmed["session_objects"].items()]
+            self.objekti_menüü = UIDropDownMenu(järjend,
+                                                        '',
+                                                    pygame.Rect((measurements["veerg_1"], measurements["rida_4"]), (nupp_laius, 25)),
+                                                    self.ui_manager,
+                                                    container=self)
+            self.objekti_menüü.expand_direction = "up"
             
 
+            self.lisa = UIButton(pygame.Rect((measurements["veerg_2"], measurements["rida_4"]), (nupp_laius, 25)), "Lisa Objekt", self.ui_manager,container=self)
 
-        self.gravitatsioon = UITextEntryLine(pygame.Rect((measurements["veerg_3"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.gravitatsioon.set_text(str(andmed["gui_andmed"]["gravitatsioon"]))
-        if self.gravitatsioon.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.gravitatsioon.set_text("0")
-        else:
-            sõne = self.gravitatsioon.get_text()
-        self.gravitatsioon_sild = UILabel(pygame.Rect((measurements["veerg_3"], measurements["rida_1"]), (nupp_laius, 25)), "Gravitatsioon: "+sõne, self.ui_manager, container=self)
-            
+            self.puhasta = UIButton(pygame.Rect((measurements["veerg_3"], measurements["rida_4"]), (nupp_laius, 25)), "Puhasta ekraan", self.ui_manager,container=self)
 
+            self.lisa_järjendist = UIButton(pygame.Rect((measurements["veerg_2"], measurements["rida_3"]), (nupp_laius, 25)), "Lisa järjendist", self.ui_manager,container=self)
 
-        self.suurus = UITextEntryLine(pygame.Rect((measurements["veerg_4"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.suurus.set_text(str(andmed["gui_andmed"]["suurus"]))
-        if self.suurus.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.suurus.set_text("0")
-        else:
-            sõne = self.suurus.get_text()
-        self.suurus_sild = UILabel(pygame.Rect((measurements["veerg_4"], measurements["rida_1"]), (nupp_laius, 25)), "Suurus: "+sõne, self.ui_manager, container=self)
-            
+            self.lisa_kõike = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_4"]), (nupp_laius, 25)), "Lisa Kõike Järjendist", self.ui_manager,container=self)
+
+            self.kustuta_kõike = UIButton(pygame.Rect((measurements["veerg_3"], measurements["rida_3"]), (nupp_laius, 25)), "Puhasta järjendi", self.ui_manager,container=self)
+
+            self.salvesta = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_3"]), (nupp_laius, 25)), "Salvesta andmed", self.ui_manager,container=self)
 
 
-        self.värv = UITextEntryLine(pygame.Rect((measurements["veerg_5"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        _ = andmed["gui_andmed"]["värv"]
-        self.värv.set_text(str(f"{_[0]},{_[1]},{_[2]}"))
-        if self.värv.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.värv.set_text("0,0,0")
-        else:
-            sõne = self.värv.get_text()
-        self.värv_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_1"]), (nupp_laius, 25)), "Värv: "+sõne, self.ui_manager, container=self)
-            
+            self.aeg = UILabel(pygame.Rect((measurements["veerg_7"], measurements["rida_2"]), (nupp_laius, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
 
+            self.kaugus = UILabel(pygame.Rect((measurements["veerg_8"], measurements["rida_2"]), (nupp_laius, 25)), "X-positsioon: Määratlemata", self.ui_manager, container=self)
 
-        self.dt = UITextEntryLine(pygame.Rect((measurements["veerg_6"], measurements["rida_2"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.dt.set_text(str(andmed["gui_andmed"]["dt"]))
-        if self.dt.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.dt.set_text("0")
-        else:
-            sõne = self.dt.get_text()
-        self.dt_sild = UILabel(pygame.Rect((measurements["veerg_6"], measurements["rida_1"]), (nupp_laius, 25)), "dt: "+sõne, self.ui_manager, container=self)
+            self.kõrgus = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_2"]), (nupp_laius, 25)), "Y-positsioon: Määratlemata", self.ui_manager, container=self)
 
+            self.režiimi_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_3"]), (nupp_laius, 25)), andmed["gui_andmed"]["režiim"], self.ui_manager, container=self)
+            self.režiim = UIButton(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (nupp_laius, 25)), "Vaheta režiimi", self.ui_manager,container=self)
 
-        self.raskus = UITextEntryLine(pygame.Rect((measurements["veerg_6"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.raskus.set_text(str(andmed["gui_andmed"]["raskus"]))
-        if self.raskus.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.raskus.set_text("1")
-        else:
-            sõne = self.raskus.get_text()
-        self.raskus_sild = UILabel(pygame.Rect((measurements["veerg_6"], measurements["rida_3"]), (nupp_laius, 25)), "Raskus (kg): "+sõne, self.ui_manager, container=self)
-        
-
-        self.tõmbetegur = UITextEntryLine(pygame.Rect((measurements["veerg_7"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.tõmbetegur.set_text(str(andmed["gui_andmed"]["tõmbetegur"]))
-        if self.tõmbetegur.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.tõmbetegur.set_text("0.47")
-        else:
-            sõne = self.tõmbetegur.get_text()
-        self.tõmbetegur_sild = UILabel(pygame.Rect((measurements["veerg_7"], measurements["rida_3"]), (nupp_laius, 25)), "Tõmbetegur: "+sõne, self.ui_manager, container=self)
-            
-
-        self.õhu_tihedus = UITextEntryLine(pygame.Rect((measurements["veerg_8"], measurements["rida_4"]), (nupp_laius, 25)), self.ui_manager, container=self)
-        self.õhu_tihedus.set_text(str(andmed["gui_andmed"]["õhu_tihedus"]))
-        if self.õhu_tihedus.get_text().strip() == '':
-            sõne = "Määratlemata"
-            self.õhu_tihedus.set_text("1.225")
-        else:
-            sõne = self.õhu_tihedus.get_text()
-        self.õhu_tihedus_sild = UILabel(pygame.Rect((measurements["veerg_8"], measurements["rida_3"]), (nupp_laius, 25)), "Õhu tihedus: "+sõne, self.ui_manager, container=self)
-            
-
-        järjend = [key for key, _ in andmed["session_objects"].items()]
-        self.objekti_menüü = UIDropDownMenu(järjend,
-                                                    '',
-                                                  pygame.Rect((measurements["veerg_1"], measurements["rida_4"]), (nupp_laius, 25)),
-                                                  self.ui_manager,
-                                                  container=self)
-        self.objekti_menüü.expand_direction = "up"
-        
-
-        self.lisa = UIButton(pygame.Rect((measurements["veerg_2"], measurements["rida_4"]), (nupp_laius, 25)), "Lisa Objekt", self.ui_manager,container=self)
-
-        self.puhasta = UIButton(pygame.Rect((measurements["veerg_3"], measurements["rida_4"]), (nupp_laius, 25)), "Puhasta ekraan", self.ui_manager,container=self)
-
-        self.lisa_järjendist = UIButton(pygame.Rect((measurements["veerg_2"], measurements["rida_3"]), (nupp_laius, 25)), "Lisa järjendist", self.ui_manager,container=self)
-
-        self.lisa_kõike = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_4"]), (nupp_laius, 25)), "Lisa Kõike Järjendist", self.ui_manager,container=self)
-
-        self.kustuta_kõike = UIButton(pygame.Rect((measurements["veerg_3"], measurements["rida_3"]), (nupp_laius, 25)), "Puhasta järjendi", self.ui_manager,container=self)
-
-        self.salvesta = UIButton(pygame.Rect((measurements["veerg_4"], measurements["rida_3"]), (nupp_laius, 25)), "Salvesta andmed", self.ui_manager,container=self)
-
-
-        self.aeg = UILabel(pygame.Rect((measurements["veerg_7"], measurements["rida_2"]), (nupp_laius, 25)), "Reaalaeg: Määratlemata", self.ui_manager, container=self)
-
-        self.kaugus = UILabel(pygame.Rect((measurements["veerg_8"], measurements["rida_2"]), (nupp_laius, 25)), "X-positsioon: Määratlemata", self.ui_manager, container=self)
-
-        self.kõrgus = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_2"]), (nupp_laius, 25)), "Y-positsioon: Määratlemata", self.ui_manager, container=self)
-
-        tekst = "Õhutaksitusega"*andmed["gui_andmed"]["õhutakistusega"] + "Ilma õhutakistuseta"*(not andmed["gui_andmed"]["õhutakistusega"])
-        self.režiimi_sild = UILabel(pygame.Rect((measurements["veerg_5"], measurements["rida_3"]), (nupp_laius, 25)), tekst, self.ui_manager, container=self)
-        self.režiim = UIButton(pygame.Rect((measurements["veerg_5"], measurements["rida_4"]), (nupp_laius, 25)), "Vaheta režiimi", self.ui_manager,container=self)
-
-        tekst = "Riivsaiaga"*andmed["gui_andmed"]["riivsaiaga"] + "Ilma riivsaiata"*(not andmed["gui_andmed"]["riivsaiaga"])
-        self.riivsaia_sild = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_3"]), (nupp_laius, 25)), tekst, self.ui_manager, container=self)
-        self.riivsai = UIButton(pygame.Rect((measurements["veerg_9"], measurements["rida_4"]), (nupp_laius, 25)), "Riivsai", self.ui_manager,container=self)
+            tekst = "Riivsaiaga"*andmed["gui_andmed"]["riivsaiaga"] + "Ilma riivsaiata"*(not andmed["gui_andmed"]["riivsaiaga"])
+            self.riivsaia_sild = UILabel(pygame.Rect((measurements["veerg_9"], measurements["rida_3"]), (nupp_laius, 25)), tekst, self.ui_manager, container=self)
+            self.riivsai = UIButton(pygame.Rect((measurements["veerg_9"], measurements["rida_4"]), (nupp_laius, 25)), "Riivsai", self.ui_manager,container=self)
 
 
         # -------------------- GUI NUPUDE, TEKSTKASTIDE, TEKSTISILTIDE JA RIPPUMENÜÜDE OSA LÕPP -------------------- #  

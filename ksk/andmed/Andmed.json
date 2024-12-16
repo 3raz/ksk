@@ -3,24 +3,24 @@
     "scale": 3,
     "resolution": [
         1920,
-        1000
+        1009
     ],
     "gui_pikkus": 6,
     "gui_andmed": {
-        "esialgne_kiirus": 150.0,
-        "nurk": 46.0,
+        "esialgne_kiirus": 3900.0,
+        "nurk": 45.0,
         "gravitatsioon": 9.81,
-        "suurus": 10.0,
+        "suurus": 0.0045,
         "v\u00e4rv": [
-            100,
+            0,
             255,
-            25
+            255
         ],
         "dt": 0.01,
-        "raskus": 100000.0,
-        "t\u00f5mbetegur": 0.47,
+        "raskus": 0.00803,
+        "t\u00f5mbekoefitsient": 0.295,
         "\u00f5hu_tihedus": 1.225,
-        "\u00f5hutakistusega": true,
+        "re\u017eiim": "Kuul",
         "riivsaiaga": true
     },
     "objektid": [

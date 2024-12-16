@@ -5,6 +5,7 @@ from gui.Gui import GUIEkraan
 from andmed.Andmed import Andmed
 from mudlid.Sfäär import Sfäär
 from mudlid.SfäärÕhutakistusega import SfäärÕhutakistusega
+from mudlid.Kuul import Kuul
 from mudlid.Tegeleja import Tegeleja
 from gui.GuiParser import GuiParser
 
@@ -48,7 +49,7 @@ class SündmuseJuhataja:
                     andmed["gui_andmed"]["suurus"] = float(self.gui.kinematics_window.suurus.get_text())
                     andmed["gui_andmed"]["värv"] = [int(x) for x in self.gui.kinematics_window.värv.get_text().strip().split(',')]
                     andmed["gui_andmed"]["raskus"] = float(self.gui.kinematics_window.raskus.get_text())
-                    andmed["gui_andmed"]["tõmbetegur"] = float(self.gui.kinematics_window.tõmbetegur.get_text())
+                    andmed["gui_andmed"]["tõmbekoefitsient"] = float(self.gui.kinematics_window.tõmbekoefitsient.get_text())
                     andmed["gui_andmed"]["õhu_tihedus"] = float(self.gui.kinematics_window.õhu_tihedus.get_text())
 
             # Määrab muutujat rippmenüü praeguse tekstiga, kui rippmenüü praeguse tekst on muutnud. 
@@ -101,12 +102,8 @@ class SündmuseJuhataja:
                         if h1 == o.objekti_andmed_võtja:
                             trigger = True
 
-                    if trigger:
-                        pass
-                    else:
-                        pass
-                        self.gui.kinematics_window.set_most_recent_object(o)
-                        uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + " sfäär"
+                    if not trigger:
+                        uue_objekti_nimi = self.gui.kinematics_window.approximate_color(o.värv) + f" {o.tüüp}"
                         while True:
                             for key, _ in andmed["session_objects"].items():
                                 if key == uue_objekti_nimi:
@@ -118,6 +115,7 @@ class SündmuseJuhataja:
                             break
                         andmed["session_objects"][uue_objekti_nimi] = o.objekti_andmed_võtja
                         self.gui.kinematics_window.objekti_menüü.add_options([uue_objekti_nimi])
+                    self.gui.kinematics_window.set_most_recent_object(o)
                     self.ekraan.lisa_objekti(o)
 
                 # Objekti lisamise nupp rippumenüüst
@@ -148,11 +146,17 @@ class SündmuseJuhataja:
 
                 # Vahetab režiimi
                 if sündmus.ui_element == self.gui.kinematics_window.režiim:
-                    andmed["gui_andmed"]["õhutakistusega"] = not andmed["gui_andmed"]["õhutakistusega"]
-                    if andmed["gui_andmed"]["õhutakistusega"]:
-                        self.gui.kinematics_window.režiimi_sild.set_text("Õhutakistusega")
+                    if andmed["gui_andmed"]["režiim"] == "Kuul":
+                        andmed["gui_andmed"]["režiim"] = "Ilma õhutakistuseta"
+
+                    elif andmed["gui_andmed"]["režiim"] == "Ilma õhutakistuseta":
+                        andmed["gui_andmed"]["režiim"] = "Õhutakistusega"
+                        
                     else:
-                        self.gui.kinematics_window.režiimi_sild.set_text("Ilma õhutakistuseta")
+                        andmed["gui_andmed"]["režiim"] = "Kuul"
+
+                    self.gui.kinematics_window.režiimi_sild.set_text(andmed["gui_andmed"]["režiim"])
+          
 
                 # Vahetab saia
                 if sündmus.ui_element == self.gui.kinematics_window.riivsai:
@@ -179,10 +183,10 @@ class SündmuseJuhataja:
         üldinfo = [esialgne_kiirus, nurk, gravitatsioon, suurus, värv]
 
         raskus = self.gui_parser.positiivne_number(self.gui.kinematics_window.raskus.get_text())
-        tõmbetegur = self.gui_parser.positiivne_number(self.gui.kinematics_window.tõmbetegur.get_text())
+        tõmbekoefitsient = self.gui_parser.positiivne_number(self.gui.kinematics_window.tõmbekoefitsient.get_text())
         õhu_tihedus = self.gui_parser.positiivne_number(self.gui.kinematics_window.õhu_tihedus.get_text())
 
-        õhuinfo = [raskus, tõmbetegur, õhu_tihedus]
+        õhuinfo = [raskus, tõmbekoefitsient, õhu_tihedus]
 
         # vaikeväärtus
         if dt == None:
@@ -193,7 +197,7 @@ class SündmuseJuhataja:
             if asi == None:
                 return None
 
-        if not andmed["gui_andmed"]["õhutakistusega"]:
+        if andmed["gui_andmed"]["režiim"] == "Ilma õhutakistuseta":
             # Uue objekti on loonud antud andmetega
             o = Sfäär(self.ekraan.ekraan,
                                 esialgne_kiirus,
@@ -204,12 +208,13 @@ class SündmuseJuhataja:
                                 värv=värv)
             
             return o
-        else:
-            # viga, kui midagi on None
-            for asi in õhuinfo:
-                if asi == None:
-                    return None
-                
+    
+
+        for asi in õhuinfo:
+            if asi == None:
+                return None
+            
+        if andmed["gui_andmed"]["režiim"] == "Õhutakistusega":     
             # Uue objekti on loonud antud andmetega
             o = SfäärÕhutakistusega(self.ekraan.ekraan,
                                             esialgne_kiirus,
@@ -219,7 +224,21 @@ class SündmuseJuhataja:
                                             suurus=suurus,
                                             raskus=raskus,
                                             värv=värv,
-                                            tõmbetegur=tõmbetegur,
+                                            tõmbekoefitsient=tõmbekoefitsient,
+                                            õhu_tihedus=õhu_tihedus)
+            
+            return o
+        else:   
+            # Uue objekti on loonud antud andmetega
+            o = Kuul(self.ekraan.ekraan,
+                                            esialgne_kiirus,
+                                            nurk, 
+                                            gravitatsioon=gravitatsioon,
+                                            dt=dt,
+                                            suurus=suurus,
+                                            raskus=raskus,
+                                            värv=värv,
+                                            tõmbekoefitsient=tõmbekoefitsient,
                                             õhu_tihedus=õhu_tihedus)
             
             return o

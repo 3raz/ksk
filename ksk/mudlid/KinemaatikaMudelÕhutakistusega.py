@@ -6,11 +6,11 @@ andmed = Andmed().andmed
 
 class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
     def __init__(self, esialgne_kiirus: float, nurk: float, gravitatsioon: float, dt: float, 
-                 suurus: float, raskus: float, tõmbetegur: float, õhu_tihedus: float=1.225) -> None:
+                 suurus: float, raskus: float, tõmbekoefitsient: float, õhu_tihedus: float=1.225) -> None:
         super().__init__(esialgne_kiirus, nurk, gravitatsioon, dt)
         
         # Õhutakistuse paraameterid
-        self.tõmbetegur = tõmbetegur
+        self.tõmbekoefitsient = tõmbekoefitsient
         self.õhu_tihedus = õhu_tihedus
         self.ristlõike_pindala = math.pi * (suurus ** 2)
         self.raskus = raskus
@@ -25,7 +25,8 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
             kiirus = math.sqrt(kiirus_x ** 2 + kiirus_y ** 2)
         except OverflowError:
             kiirus = math.sqrt(2**128 + 2**128)
-        tõmbejõud = 0.5 * self.õhu_tihedus * self.tõmbetegur * self.ristlõike_pindala * (kiirus ** 2)
+            
+        tõmbejõud = 0.5 * self.õhu_tihedus * self.tõmbekoefitsient * self.ristlõike_pindala * (kiirus ** 2)
 
         # Tõmbekiirendused
         try:
@@ -75,5 +76,5 @@ class KinemaatikaMudelÕhutakistusega(KinemaatikaMudel):
                 f"Ajatükk (dt): {self.dt:.4f} s\n"
                 f"Suurus (raadius): {self.suurus:.3f} m\n"
                 f"Raskus (mass): {self.raskus:.2f} kg\n"
-                f"Tõmbetegur: {self.tõmbetegur:.2f}\n"
+                f"Tõmbekoefitsient: {self.tõmbekoefitsient:.2f}\n"
                 f"Õhu tihedus: {self.õhu_tihedus:.3f} kg/m³")
