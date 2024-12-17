@@ -1,26 +1,26 @@
 {
     "salvestamise_intervall": 30,
-    "scale": 9,
+    "scale": 3,
     "resolution": [
         1920,
         1009
     ],
     "gui_pikkus": 6,
     "gui_andmed": {
-        "esialgne_kiirus": 390.0,
+        "esialgne_kiirus": 200.0,
         "nurk": 45.0,
         "gravitatsioon": 9.81,
-        "suurus": 0.0045,
+        "suurus": 25.0,
         "v\u00e4rv": [
-            0,
             255,
+            0,
             255
         ],
         "dt": 0.01,
         "raskus": 0.00803,
-        "t\u00f5mbekoefitsient": 1.295,
+        "t\u00f5mbekoefitsient": 0.47,
         "\u00f5hu_tihedus": 1.225,
-        "re\u017eiim": "Kuul",
+        "re\u017eiim": "\u00d5hutakistusega",
         "riivsaiaga": true
     },
     "ballistilinekoefitsient": 0.15,
